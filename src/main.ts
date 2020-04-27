@@ -75,7 +75,30 @@ import '@fullcalendar/daygrid/main.min.css';
 import '@fullcalendar/timegrid/main.min.css';
 import './assets/layout/layout.scss';
 import store from './store'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
+import axios from 'axios'
+import apiService from "./api/apiServices"
 
+axios.defaults.withCredentials = true
+axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? "http://localhost:9000/" : "/";
+
+apiService.init()
+
+router.beforeEach((to, from, next) => {
+  if (store.state.isAuthenticated)
+    next()
+  else {
+    if (to.name == 'login')
+      next()
+    else
+      next({ name: 'login' })
+  }
+})
+
+Vue.use(BootstrapVue)
+Vue.use(BootstrapVueIcons)
 Vue.use(ToastService);
 Vue.directive('tooltip', Tooltip);
 
@@ -144,7 +167,7 @@ Vue.component('TriStateCheckbox', TriStateCheckbox);
 Vue.component('ValidationMessage', ValidationMessage);
 
 new Vue({
-    router,
-    store,
-    render: h => h(App)
+  router,
+  store,
+  render: h => h(App)
 }).$mount('#app');

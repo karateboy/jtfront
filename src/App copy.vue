@@ -72,58 +72,101 @@ export default {
           ]
         },
         {
-          label: "Image Document",
+          label: "Components",
           icon: "pi pi-fw pi-globe",
           badge: "9",
           items: [
             {
-              label: "Merge Document",
+              label: "Sample Page",
               icon: "pi pi-fw pi-th-large",
-              to: "/merge"
+              to: "/sample"
             },
-            { label: "Search", icon: "pi pi-fw pi-file", to: "/search" }
+            { label: "Forms", icon: "pi pi-fw pi-file", to: "/forms" },
+            { label: "Data", icon: "pi pi-fw pi-table", to: "/data" },
+            { label: "Panels", icon: "pi pi-fw pi-list", to: "/panels" },
+            { label: "Overlays", icon: "pi pi-fw pi-clone", to: "/overlays" },
+            { label: "Menus", icon: "pi pi-fw pi-plus", to: "/menus" },
+            { label: "Messages", icon: "pi pi-fw pi-spinner", to: "/messages" },
+            { label: "Charts", icon: "pi pi-fw pi-chart-bar", to: "/charts" },
+            { label: "Misc", icon: "pi pi-fw pi-upload", to: "/misc" }
           ]
         },
         {
-          label: "User Management",
+          label: "Template Pages",
           icon: "pi pi-fw pi-file",
-          to: "/userManagement"
+          items: [
+            {
+              label: "Empty Page",
+              icon: "pi pi-fw pi-circle-off",
+              to: "/empty"
+            }
+          ]
         },
         {
-          label: "JT Erp",
+          label: "Menu Hierarchy",
           icon: "pi pi-fw pi-search",
           items: [
             {
-              label: "Customer",
+              label: "Submenu 1",
               icon: "pi pi-fw pi-bookmark",
-              to: "/customer"
+              items: [
+                {
+                  label: "Submenu 1.1",
+                  icon: "pi pi-fw pi-bookmark",
+                  items: [
+                    { label: "Submenu 1.1.1", icon: "pi pi-fw pi-bookmark" },
+                    { label: "Submenu 1.1.2", icon: "pi pi-fw pi-bookmark" },
+                    { label: "Submenu 1.1.3", icon: "pi pi-fw pi-bookmark" }
+                  ]
+                },
+                {
+                  label: "Submenu 1.2",
+                  icon: "pi pi-fw pi-bookmark",
+                  items: [
+                    { label: "Submenu 1.2.1", icon: "pi pi-fw pi-bookmark" },
+                    { label: "Submenu 1.2.2", icon: "pi pi-fw pi-bookmark" }
+                  ]
+                }
+              ]
             },
             {
-              label: "Product",
+              label: "Submenu 2",
               icon: "pi pi-fw pi-bookmark",
-              to: "/product"
-            },
-            {
-              label: "Order",
-              icon: "pi pi-fw pi-bookmark",
-              to: "/order"
-            },
-            {
-              label: "Product",
-              icon: "pi pi-fw pi-bookmark",
-              to: "/product"
-            },
-            {
-              label: "Work",
-              icon: "pi pi-fw pi-bookmark",
-              to: "/work"
-            },
-            {
-              label: "Material",
-              icon: "pi pi-fw pi-bookmark",
-              to: "/material"
+              items: [
+                {
+                  label: "Submenu 2.1",
+                  icon: "pi pi-fw pi-bookmark",
+                  items: [
+                    { label: "Submenu 2.1.1", icon: "pi pi-fw pi-bookmark" },
+                    { label: "Submenu 2.1.2", icon: "pi pi-fw pi-bookmark" },
+                    { label: "Submenu 2.1.3", icon: "pi pi-fw pi-bookmark" }
+                  ]
+                },
+                {
+                  label: "Submenu 2.2",
+                  icon: "pi pi-fw pi-bookmark",
+                  items: [
+                    { label: "Submenu 2.2.1", icon: "pi pi-fw pi-bookmark" },
+                    { label: "Submenu 2.2.2", icon: "pi pi-fw pi-bookmark" }
+                  ]
+                }
+              ]
             }
           ]
+        },
+        {
+          label: "Documentation",
+          icon: "pi pi-fw pi-question",
+          command: () => {
+            window.location = "#/documentation";
+          }
+        },
+        {
+          label: "View Source",
+          icon: "pi pi-fw pi-search",
+          command: () => {
+            window.location = "https://github.com/primefaces/sigma-vue";
+          }
         }
       ]
     };

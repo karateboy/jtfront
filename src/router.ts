@@ -7,82 +7,108 @@ Vue.use(Router);
 export default new Router({
 	routes: [
 		{
+			path: "/login",
+			name: "login",
+			component: () => import("./pages/Login.vue")
+		},
+		{
 			path: '/',
 			name: 'dashboard',
 			component: Dashboard
 		},
 		{
-			path: '/sample',
-			name: 'sample',
-			component: () => import('./components/SampleDemo.vue')
+			path: '/merge',
+			name: 'MergeDoc',
+			component: () => import("./pages/MergeDoc.vue")
 		},
 		{
-			path: '/forms',
-			name: 'forms',
-			component: () => import('./components/FormsDemo.vue')
+			path: '/search',
+			name: 'SearchDoc',
+			component: () => import("./pages/SearchDoc.vue")
 		},
 		{
-			path: '/data',
-			name: 'data',
-			component: () => import('./components/DataDemo.vue')
+			path: '/userManagement',
+			name: 'UserManagement',
+			component: ()=>import("./pages/UserManagement.vue")
 		},
 		{
-			path: '/panels',
-			name: 'panels',
-			component: () => import('./components/PanelsDemo.vue')
+			path: '/customer',
+			name: 'Customer',
+			component: ()=>import('./pages/Customer.vue'),
+			children: [
+				{
+					path: ':id',
+					name: 'CustomerDocument',
+				}
+			]
 		},
 		{
-			path: '/overlays',
-			name: 'overlays',
-			component: () => import('./components/OverlaysDemo.vue')
+			path: '/product',
+			name: "Product",
+			component: ()=>import('./pages/Product.vue'),
+			children: [
+				{
+					path: 'customer/:id',
+					name: 'ProductCustomerList',
+				},
+				{
+					path: ':id',
+					name: 'ProductDocument',
+				}
+			]
 		},
 		{
-			path: '/menus',
-            component: () => import('./components/MenusDemo.vue'),
-            children: [{
-                path: '',
-                component: () => import('./components/menu/PersonalDemo.vue')
-            },
-            {
-                path: '/menus/seat',
-                component: () => import('./components/menu/SeatDemo.vue')
-            },
-            {
-                path: '/menus/payment',
-                component: () => import('./components/menu/PaymentDemo.vue')
-            },
-            {
-                path: '/menus/confirmation',
-                component: () => import('./components/menu/ConfirmationDemo.vue')
-            }]
-        },
-		{
-			path: '/messages',
-			name: 'messages',
-			component: () => import('./components/MessagesDemo.vue')
+			path: '/order',
+			name: "Order",
+			component: ()=>import('./pages/Order.vue'),
+			children: [
+				{
+					path: 'customer/:id',
+					name: 'OrderCustomerList',
+				},
+				{
+					path: ':id',
+					name: 'OrderDocument',
+				}
+			]
 		},
 		{
-			path: '/charts',
-			name: 'charts',
-			component: () => import('./components/ChartsDemo.vue')
+			path: '/work',
+			name: "Work",
+			component: ()=>import('./pages/Work.vue'),
+			children: [
+				{
+					path: 'customer/:id',
+					name: 'WorkCustomerList',
+				},
+				{
+					path: ':id',
+					name: 'WorkDocument',
+				}
+			]
 		},
 		{
-			path: '/misc',
-			name: 'misc',
-			component: () => import('./components/MiscDemo.vue')
+			path: '/material',
+			name: "Material",
+			component: ()=>import('./pages/Material.vue'),
+			children: [
+				{
+					path: 'customer/:id',
+					name: 'MaterialCustomerList',
+				},
+				{
+					path: ':id',
+					name: 'MaterialDocument',
+				}
+			]
 		},
 		{
 			path: '/empty',
 			name: 'empty',
 			component: () => import('./components/EmptyPage.vue')
 		},
-		{
-			path: '/documentation',
-			name: 'documentation',
-			component: () => import('./components/Documentation.vue')
-		},
 	],
 	scrollBehavior() {
-		return {x: 0, y: 0};
+		return { x: 0, y: 0 };
 	}
 });
