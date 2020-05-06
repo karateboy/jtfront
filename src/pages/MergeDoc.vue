@@ -62,7 +62,7 @@
 <script lang="ts">
 import Vue from "vue";
 import axios from "axios";
-import { ImageParam, NewDocParam } from "./types";
+// import { ImageParam, NewDocParam } from "./types";
 
 export default Vue.extend({
   mounted() {

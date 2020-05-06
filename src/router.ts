@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Dashboard from './components/Dashboard.vue';
+import Dashboard from '@/prime/components/Dashboard.vue';
 
 Vue.use(Router);
 
@@ -29,12 +29,12 @@ export default new Router({
 		{
 			path: '/userManagement',
 			name: 'UserManagement',
-			component: ()=>import("./pages/UserManagement.vue")
+			component: () => import("./pages/UserManagement.vue")
 		},
 		{
 			path: '/customer',
 			name: 'Customer',
-			component: ()=>import('./pages/Customer.vue'),
+			component: () => import('./pages/Customer.vue'),
 			children: [
 				{
 					path: ':id',
@@ -45,7 +45,7 @@ export default new Router({
 		{
 			path: '/product',
 			name: "Product",
-			component: ()=>import('./pages/Product.vue'),
+			component: () => import('./pages/Product.vue'),
 			children: [
 				{
 					path: 'customer/:id',
@@ -60,7 +60,7 @@ export default new Router({
 		{
 			path: '/order',
 			name: "Order",
-			component: ()=>import('./pages/Order.vue'),
+			component: () => import('./pages/Order.vue'),
 			children: [
 				{
 					path: 'customer/:id',
@@ -75,7 +75,7 @@ export default new Router({
 		{
 			path: '/work',
 			name: "Work",
-			component: ()=>import('./pages/Work.vue'),
+			component: () => import('./pages/Work.vue'),
 			children: [
 				{
 					path: 'customer/:id',
@@ -90,7 +90,7 @@ export default new Router({
 		{
 			path: '/material',
 			name: "Material",
-			component: ()=>import('./pages/Material.vue'),
+			component: () => import('./pages/Material.vue'),
 			children: [
 				{
 					path: 'customer/:id',
@@ -103,9 +103,74 @@ export default new Router({
 			]
 		},
 		{
+			path: '/sample',
+			name: 'sample',
+			component: () => import('@/prime/components/SampleDemo.vue')
+		},
+		{
+			path: '/forms',
+			name: 'forms',
+			component: () => import('@/prime/components/FormsDemo.vue')
+		},
+		{
+			path: '/data',
+			name: 'data',
+			component: () => import('@/prime/components/DataDemo.vue')
+		},
+		{
+			path: '/panels',
+			name: 'panels',
+			component: () => import('@/prime/components/PanelsDemo.vue')
+		},
+		{
+			path: '/overlays',
+			name: 'overlays',
+			component: () => import('@/prime/components/OverlaysDemo.vue')
+		},
+		{
+			path: '/menus',
+			component: () => import('@/prime/components/MenusDemo.vue'),
+			children: [{
+				path: '',
+				component: () => import('@/prime/components/menu/PersonalDemo.vue')
+			},
+			{
+				path: '/menus/seat',
+				component: () => import('@/prime/components/menu/SeatDemo.vue')
+			},
+			{
+				path: '/menus/payment',
+				component: () => import('@/prime/components/menu/PaymentDemo.vue')
+			},
+			{
+				path: '/menus/confirmation',
+				component: () => import('@/prime/components/menu/ConfirmationDemo.vue')
+			}]
+		},
+		{
+			path: '/messages',
+			name: 'messages',
+			component: () => import('@/prime/components/MessagesDemo.vue')
+		},
+		{
+			path: '/charts',
+			name: 'charts',
+			component: () => import('@/prime/components/ChartsDemo.vue')
+		},
+		{
+			path: '/misc',
+			name: 'misc',
+			component: () => import('@/prime/components/MiscDemo.vue')
+		},
+		{
 			path: '/empty',
 			name: 'empty',
-			component: () => import('./components/EmptyPage.vue')
+			component: () => import('@/prime/components/EmptyPage.vue')
+		},
+		{
+			path: '/documentation',
+			name: 'documentation',
+			component: () => import('@/prime/components/Documentation.vue')
 		},
 	],
 	scrollBehavior() {

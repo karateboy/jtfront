@@ -5,7 +5,7 @@ import VueAxios from "vue-axios";
 export const ApiService = {
   init() {
     Vue.use(VueAxios, axios);
-    Vue.axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? "http://localhost:9000/" : "/";
+    // Vue.axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? "http://localhost:9000/" : "/";
   },
 
   //   setHeader() {

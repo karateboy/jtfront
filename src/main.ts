@@ -79,23 +79,24 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import axios from 'axios'
-import apiService from "./api/apiServices"
+import apiService from "@/api/apiServices"
 
-axios.defaults.withCredentials = true
-axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? "http://localhost:9000/" : "/";
+// axios.defaults.withCredentials = true
+// axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? "http://localhost:9000/" : "/";
+axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? "http://192.168.5.135:5000/" : "/";
 
 apiService.init()
 
-router.beforeEach((to, from, next) => {
-  if (store.state.isAuthenticated)
-    next()
-  else {
-    if (to.name == 'login')
-      next()
-    else
-      next({ name: 'login' })
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   if (store.state.isAuthenticated)
+//     next()
+//   else {
+//     if (to.name == 'login')
+//       next()
+//     else
+//       next({ name: 'login' })
+//   }
+// })
 
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)

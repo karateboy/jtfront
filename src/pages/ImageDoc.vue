@@ -54,7 +54,7 @@
 import Vue from "vue";
 import axios from "axios";
 import moment from "moment";
-import { ImageParam, NewDocParam } from "./types";
+// import { ImageParam, NewDocParam } from "./types";
 
 interface upload {
   active: boolean;
