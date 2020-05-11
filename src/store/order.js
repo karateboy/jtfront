@@ -100,6 +100,7 @@ const actions = {
             })
     },
     FETCH_DOCUMENT({ commit }, db) {
+        console.log(db);
         moduleApi.list(db, "")
             .then(response => {
                 commit('SET_DOCUMENT', response.data);

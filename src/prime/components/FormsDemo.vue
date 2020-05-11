@@ -354,7 +354,7 @@ export default {
 			listboxCity: null,
 			ratingValue: null,
 			inputGroupValue: false,
-			editorValue: '<div>Welcome to PrimeVue <b>Editor</b></div><div><br></div>',
+			editorValue: '<div>Welcome to PrimeVue <b>Editor</b></div><div>Welcome to PrimeVue <b>Editor</b></div><div><br></div>',
 			toggleValue: false,
 			selectButtonValues: [
 				{name: 'Apartment', code: 'Apartment'},

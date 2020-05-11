@@ -1,7 +1,6 @@
 <template>
   <div class="p-card">
     <div class="p-card-body">
-      <h4>List of Customers</h4>
 
       <DataTable
         :value="list"
@@ -24,10 +23,12 @@
       >
         <template #header>
           <div class="p-datatable-container">
+            <h4>{{tableTitle}} </h4>
             <InputText v-model="filters['global']" placeholder="Global Search" />
             <Button icon="pi pi-external-link" label="Export" @click="exportCSV($event)" />
           </div>
         </template>
+        
         <Column selectionMode="multiple" headerStyle="width: 3em"></Column>
 
         <Column field="account_type" header="account_type">
@@ -89,6 +90,7 @@ export default {
     return {
       databasePath: this.$route.path,
       filters: {},
+      tableTitle: "List of Customer",
 
       columns: null,
       selectedItems: null
@@ -114,4 +116,8 @@ export default {
 	***
 	!-->
 <style scoped>
+h4 {
+  display: inline;
+}
 </style>
+

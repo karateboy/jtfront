@@ -1,8 +1,6 @@
 <template>
   <div class="p-card">
     <div class="p-card-body">
-      <h4>List of Customers</h4>
-
       <DataTable
         :value="list"
         ref="dt"
@@ -24,12 +22,14 @@
       >
         <template #header>
           <div class="p-datatable-container">
+            <h4>{{tableTitle}}</h4>
             <InputText v-model="filters['global']" placeholder="Global Search" />
             <Button icon="pi pi-external-link" label="Export" @click="exportCSV($event)" />
           </div>
         </template>
+
         <Column selectionMode="multiple" headerStyle="width: 3em"></Column>
-        <Column field="product_code" header="Product Code">
+        <Column field="product_code" header="Product Code" headerStyle="width: 5%">
           <template #filter>
             <InputText
               type="text"
@@ -39,11 +39,32 @@
             />
           </template>
         </Column>
-        <Column field="product_number" header="Product Number">
+        <Column
+          field="product_number"
+          header="Product Number"
+          :sortable="true"
+          headerStyle="width: 8%"
+        >
           <template #filter>
             <InputText
-              type="number"
+              type="text"
               v-model="filters['product_number']"
+              class="p-column-filter"
+              placeholder="Starts with"
+            />
+          </template>
+          <template #body="product">
+            <a :href="`product/${product.data.ptn}`">
+              {{product.data.product_number}}
+              <span v-if="product.data.product_spec">-{{product.data.product_spec}}</span>
+            </a>
+          </template>
+        </Column>
+        <Column field="ext_ref" header="ext_ref" headerStyle="width: 8%">
+          <template #filter>
+            <InputText
+              type="text"
+              v-model="filters['ext_ref']"
               class="p-column-filter"
               placeholder="Starts with"
             />
@@ -59,11 +80,30 @@
             />
           </template>
         </Column>
-        <Column field="paper_code" header="Paper Code"></Column>
-        <Column field="colors" header="Colors"></Column>
-        <Column field="stock" header="Stock"></Column>
-        <Column field="cell" header="Cell"></Column>
-        <Column field="print_type" header="Print Type"></Column>
+        <Column field="colors" header="Colors" headerStyle="width: 3%"></Column>
+
+        <Column field="paper_code" header="Paper Code" headerStyle="width: 10%">
+          <template #filter>
+            <InputText
+              type="text"
+              v-model="filters['paper_code']"
+              class="p-column-filter"
+              placeholder="Starts with"
+            />
+          </template>
+        </Column>
+        <Column field="stock" header="Stock" headerStyle="width: 4%"></Column>
+        <Column field="cell" header="Cell" headerStyle="width: 4%"></Column>
+        <Column field="print_type" header="Print Type" headerStyle="width: 6%">
+          <template #filter>
+            <InputText
+              type="text"
+              v-model="filters['print_type']"
+              class="p-column-filter"
+              placeholder="Starts with"
+            />
+          </template>
+        </Column>
       </DataTable>
     </div>
   </div>
@@ -91,6 +131,7 @@ export default {
     return {
       databasePath: this.$route.path,
       filters: {},
+      tableTitle: "List of Products",
 
       columns: null,
       selectedItems: null
@@ -134,4 +175,7 @@ export default {
 	***
 	!-->
 <style scoped>
+h4 {
+  display: inline;
+}
 </style>

@@ -129,13 +129,13 @@ import { mapActions, mapGetters } from "vuex";
 
 const namespaced = "product";
 
-import ColorSequence from "./product/ColorSequence";
-import Production from "./product/Production";
-import ChangeLog from "./product/ChangeLog";
-import OrderHistory from "./product/OrderHistory";
-import StorageRecord from "./product/StorageRecord";
-import ShippingRecord from "./product/ShippingRecord";
-import PrintingSubstrate from "./product/PrintingSubstrate";
+import ColorSequence from "@/components/product/ColorSequence";
+import Production from "@/components/product/Production";
+import ChangeLog from "@/components/product/ChangeLog";
+import OrderHistory from "@/components/product/OrderHistory";
+import StorageRecord from "@/components/product/StorageRecord";
+import ShippingRecord from "@/components/product/ShippingRecord";
+import PrintingSubstrate from "@/components/product/PrintingSubstrate";
 import VueJsonPretty from "vue-json-pretty";
 
 export default {

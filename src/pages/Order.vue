@@ -1,8 +1,6 @@
 <template>
   <div class="p-card">
     <div class="p-card-body">
-      <h4>List of Customers</h4>
-
       <DataTable
         :value="list"
         ref="dt"
@@ -24,21 +22,24 @@
       >
         <template #header>
           <div class="p-datatable-container">
+            <h4>{{tableTitle}} </h4>
             <InputText v-model="filters['global']" placeholder="Global Search" />
             <Button icon="pi pi-external-link" label="Export" @click="exportCSV($event)" />
           </div>
         </template>
+
         <Column selectionMode="multiple" headerStyle="width: 3em"></Column>
-        <Column field="jon" header="JR Number">
-          <template #filter>
+        <Column field="order_datetime" header="Order Datetime" filterMatchMode="contains"  :sortable="true" >
+                  <template #filter>
             <InputText
               type="text"
-              v-model="filters['jon']"
+              v-model="filters['order_datetime']"
               class="p-column-filter"
-              placeholder="Starts with"
+              placeholder="Contains"
             />
           </template>
         </Column>
+
         <Column field="customer" header="customer">
           <template #filter>
             <InputText
@@ -49,7 +50,7 @@
             />
           </template>
         </Column>
-        <Column field="order_number" header="order Name">
+        <Column field="order_number" header="order Name" filterMatchMode="contains">
           <template #filter>
             <InputText
               type="text"
@@ -58,10 +59,19 @@
               placeholder="Starts with"
             />
           </template>
+          <template #body="order">
+            {{order.data.jon}}
+            <a :href="`order/${order.data.jon}`">
+            {{order.data.order_number}}
+            </a>
+          </template>
+
         </Column>
         <Column field="order_item_count" header="order_item_count"></Column>
         <Column field="order_item_completed" header="order_item_completed"></Column>
         <Column field="order_progress" header="order_progress"></Column>
+        <Column field="ack_datetime" header="Ack Datetime" :sortable="true"/>
+
       </DataTable>
     </div>
   </div>
@@ -89,6 +99,7 @@ export default {
     return {
       databasePath: this.$route.path,
       filters: {},
+      tableTitle:"List of Orders",
 
       columns: null,
       selectedItems: null
@@ -127,4 +138,7 @@ export default {
 	***
 	!-->
 <style scoped>
+h4 {
+  display: inline;
+}
 </style>

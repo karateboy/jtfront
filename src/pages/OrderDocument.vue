@@ -139,9 +139,9 @@ import { mapActions, mapGetters } from "vuex";
 
 const namespaced = "order";
 
-import OrderWork from "./OrderWork.vue";
-import OrderEntry from "./form/OrderEntry.vue";
-import OrderEntryDetail from "./form/OrderEntryDetail.vue";
+import OrderWork from "@/components/OrderWork.vue";
+import OrderEntry from "@/components/form/OrderEntry.vue";
+import OrderEntryDetail from "@/components/form/OrderEntryDetail.vue";
 import VueJsonPretty from "vue-json-pretty";
 
 export default {
@@ -158,7 +158,7 @@ export default {
   },
   mounted() {
     console.log("Fetch Document", this.$route.path);
-    this.$store.dispatch(namespaced + "/FETCH_DOCUMENT", "/order");
+    this.$store.dispatch(namespaced + "/FETCH_DOCUMENT", this.$route.path);
   },
   methods: {
     ...mapActions(namespaced, ["FETCH_DOCUMENT"])

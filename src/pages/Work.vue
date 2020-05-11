@@ -1,14 +1,12 @@
 <template>
   <div class="p-card">
     <div class="p-card-body">
-      <h4>List of Customers</h4>
-
       <DataTable
         :value="list"
         ref="dt"
         :key="list._id"
         :scrollable="true"
-        scrollHeight="800px"
+        scrollHeight="750px"
         :filters="filters"
         :selection.sync="selectedItems"
         :rowHover="true"
@@ -24,12 +22,13 @@
       >
         <template #header>
           <div class="p-datatable-container">
+            <h4>{{tableTitle}}</h4>
             <InputText v-model="filters['global']" placeholder="Global Search" />
             <Button icon="pi pi-external-link" label="Export" @click="exportCSV($event)" />
           </div>
         </template>
-        <Column selectionMode="multiple" headerStyle="width: 3em"></Column>
 
+        <Column selectionMode="multiple" headerStyle="width: 3em"></Column>
         <Column field="entry_datetime" header="entry_datetime">
           <template #filter>
             <InputText
@@ -49,22 +48,36 @@
               placeholder="Starts with"
             />
           </template>
-        </Column>
-        <Column field="ptn" header="ptn">
-          <template #filter>
-            <InputText
-              type="text"
-              v-model="filters['ptn']"
-              class="p-column-filter"
-              placeholder="Starts with"
-            />
+          <template #body="work">
+            <a :href="`work/${work.data.jwn}`">{{work.data.jwn}}</a>
           </template>
         </Column>
-        <Column field="ext_ref" header="ext_ref">
+        <Column field="pcns" header="Codes">
           <template #filter>
             <InputText
               type="text"
-              v-model="filters['ext_ref']"
+              v-model="filters['pcns']"
+              class="p-column-filter"
+              placeholder="JT Code"
+            />
+            <InputText
+              type="text"
+              v-model="filters['product.ext_ref']"
+              class="p-column-filter"
+              placeholder="Customer Code"
+            />
+          </template>
+          <template #body="product">
+            <a :href="`product/${product.data.ptn}`">{{product.data.pcns}}</a>
+            <sub :v-if="product.data.product.ext_ref"><br/>{{product.data.product.ext_ref}}</sub>
+          </template>
+
+        </Column>
+        <Column field="product.ext_ref" header="ext_ref" headerStyle="display: false">
+          <template #filter>
+            <InputText
+              type="text"
+              v-model="filters['product.ext_ref']"
               class="p-column-filter"
               placeholder="Starts with"
             />
@@ -80,11 +93,11 @@
             />
           </template>
         </Column>
-        <Column field="order_number" header="order_number">
+        <Column field="order.order_number" header="order_number">
           <template #filter>
             <InputText
               type="text"
-              v-model="filters['order_number']"
+              v-model="filters['order.order_number']"
               class="p-column-filter"
               placeholder="Starts with"
             />
@@ -129,6 +142,7 @@ export default {
   data() {
     return {
       databasePath: this.$route.path,
+      tableTitle: "List of Work",
       filters: {},
 
       columns: null,
@@ -171,4 +185,7 @@ export default {
 	***
 	!-->
 <style scoped>
+h4 {
+  display: inline;
+}
 </style>

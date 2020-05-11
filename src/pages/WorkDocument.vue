@@ -53,9 +53,9 @@ import { mapActions, mapGetters } from "vuex";
 const namespaced = "work";
 
 import VueJsonPretty from "vue-json-pretty";
-import ShippingRecord from "./product/ShippingRecord";
-import WorkLog from "./product/WorkLog";
-import WorkPrintOut from "./product/WorkPrintOut.vue";
+import ShippingRecord from "@/components/product/ShippingRecord";
+import WorkLog from "@/components/product/WorkLog";
+import WorkPrintOut from "@/components/product/WorkPrintOut.vue";
 
 export default {
   components: {

@@ -5,6 +5,9 @@ import Dashboard from '@/prime/components/Dashboard.vue';
 Vue.use(Router);
 
 export default new Router({
+	
+    mode: 'history',
+
 	routes: [
 		{
 			path: "/login",
@@ -31,17 +34,20 @@ export default new Router({
 			name: 'UserManagement',
 			component: () => import("./pages/UserManagement.vue")
 		},
+
+		/// customer
 		{
 			path: '/customer',
 			name: 'Customer',
 			component: () => import('./pages/Customer.vue'),
-			children: [
-				{
-					path: ':id',
-					name: 'CustomerDocument',
-				}
-			]
 		},
+		{
+			path: '/customer/:id',
+			name: 'Customer Details',
+			component: () => import('./pages/Customer.vue'),
+		},
+
+		//product
 		{
 			path: '/product',
 			name: "Product",
@@ -50,13 +56,16 @@ export default new Router({
 				{
 					path: 'customer/:id',
 					name: 'ProductCustomerList',
-				},
-				{
-					path: ':id',
-					name: 'ProductDocument',
 				}
 			]
 		},
+		{
+			path: '/product/:id',
+			name: 'Customer Details',
+			component: () => import('./pages/ProductDocument.vue'),
+		},
+
+		////order
 		{
 			path: '/order',
 			name: "Order",
@@ -65,13 +74,15 @@ export default new Router({
 				{
 					path: 'customer/:id',
 					name: 'OrderCustomerList',
-				},
-				{
-					path: ':id',
-					name: 'OrderDocument',
 				}
 			]
 		},
+		{
+			path: '/order/:id',
+			name: 'Order Details',
+			component: () => import('./pages/OrderDocument.vue'),
+		},
+		/// work paths and children
 		{
 			path: '/work',
 			name: "Work",
@@ -81,12 +92,15 @@ export default new Router({
 					path: 'customer/:id',
 					name: 'WorkCustomerList',
 				},
-				{
-					path: ':id',
-					name: 'WorkDocument',
-				}
 			]
 		},
+		{
+			path: '/work/:id',
+			name: 'WorkDocument',
+			component: () => import('./pages/WorkDocument.vue'),
+
+		},
+
 		{
 			path: '/material',
 			name: "Material",
@@ -102,6 +116,8 @@ export default new Router({
 				}
 			]
 		},
+
+		///prime vue paths
 		{
 			path: '/sample',
 			name: 'sample',
@@ -162,16 +178,16 @@ export default new Router({
 			name: 'misc',
 			component: () => import('@/prime/components/MiscDemo.vue')
 		},
-		{
-			path: '/empty',
-			name: 'empty',
-			component: () => import('@/prime/components/EmptyPage.vue')
-		},
-		{
-			path: '/documentation',
-			name: 'documentation',
-			component: () => import('@/prime/components/Documentation.vue')
-		},
+		// {
+		// 	path: '/empty',
+		// 	name: 'empty',
+		// 	component: () => import('@/prime/components/EmptyPage.vue')
+		// },
+		// {
+		// 	path: '/documentation',
+		// 	name: 'documentation',
+		// 	component: () => import('@/prime/components/Documentation.vue')
+		// },
 	],
 	scrollBehavior() {
 		return { x: 0, y: 0 };

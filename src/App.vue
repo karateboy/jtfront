@@ -104,22 +104,22 @@ export default {
             }
           ]
         },
-        {
-          label: "Menu Colors",
-          icon: "pi pi-fw pi-align-left",
-          items: [
-            {
-              label: "Dark",
-              icon: "pi pi-fw pi-bars",
-              command: () => (this.layoutColorMode = "dark")
-            },
-            {
-              label: "Light",
-              icon: "pi pi-fw pi-bars",
-              command: () => (this.layoutColorMode = "light")
-            }
-          ]
-        },
+        // {
+        //   label: "Menu Colors",
+        //   icon: "pi pi-fw pi-align-left",
+        //   items: [
+        //     {
+        //       label: "Dark",
+        //       icon: "pi pi-fw pi-bars",
+        //       command: () => (this.layoutColorMode = "dark")
+        //     },
+        //     {
+        //       label: "Light",
+        //       icon: "pi pi-fw pi-bars",
+        //       command: () => (this.layoutColorMode = "light")
+        //     }
+        //   ]
+        // },
         {
           label: "Components",
           icon: "pi pi-fw pi-globe",
@@ -138,17 +138,6 @@ export default {
             { label: "Messages", icon: "pi pi-fw pi-spinner", to: "/messages" },
             { label: "Charts", icon: "pi pi-fw pi-chart-bar", to: "/charts" },
             { label: "Misc", icon: "pi pi-fw pi-upload", to: "/misc" }
-          ]
-        },
-        {
-          label: "Template Pages",
-          icon: "pi pi-fw pi-file",
-          items: [
-            {
-              label: "Empty Page",
-              icon: "pi pi-fw pi-circle-off",
-              to: "/empty"
-            }
           ]
         },
         {
@@ -202,22 +191,7 @@ export default {
               ]
             }
           ]
-        },
-        {
-          label: "Documentation",
-          icon: "pi pi-fw pi-question",
-          command: () => {
-            window.location = "#/documentation";
-          }
-        },
-        {
-          label: "View Source",
-          icon: "pi pi-fw pi-search",
-          command: () => {
-            window.location = "https://github.com/primefaces/sigma-vue";
-          }
-        }
-      ]
+        }      ]
     };
   },
   watch: {

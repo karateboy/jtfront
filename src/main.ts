@@ -83,7 +83,7 @@ import apiService from "@/api/apiServices"
 
 // axios.defaults.withCredentials = true
 // axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? "http://localhost:9000/" : "/";
-axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? "http://192.168.5.135:5000/" : "/";
+axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? "http://192.168.5.136:5000/" : "/";
 
 apiService.init()
 
