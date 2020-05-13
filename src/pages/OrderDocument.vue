@@ -1,130 +1,126 @@
 <template>
-  <div>
-    <b-row>
-      <b-col lg="7" sm="12">
-        <b-form-group
-          id="customer"
-          label-cols-sm="4"
-          label-cols-lg="2"
-          label="customer"
-          label-for="input-horizontal"
-        >
-          <b-form-input id="input-horizontal" v-model="appDocument.customer"></b-form-input>
-        </b-form-group>
-
-        <b-form-group
-          id="order_number"
-          label-cols-sm="4"
-          label-cols-lg="2"
-          label="order_number"
-          label-for="input-horizontal"
-        >
-          <b-form-input id="input-horizontal" v-model="appDocument.order_number"></b-form-input>
-        </b-form-group>
-
-        <b-form-group
-          id="product_codes"
-          label-cols-sm="4"
-          label-cols-lg="2"
-          label="product_codes"
-          label-for="input-horizontal"
-        >
-          <b-button v-for="code in appDocument.product_codes" :key="code" variant="success">{{code}}</b-button>
-
-          <!-- tag add implemetations moved under customer settings -->
-          <!-- <b-form-tags         
-            input-id="tags-basic"
-            disabled
-            v-model="appDocument.product_codes"
-            class="mb-2"
-          ></b-form-tags>-->
-        </b-form-group>
-      </b-col>
-
-      <b-col lg="5" sm="6">
-        <b-form-group id="order_note" label="order_note" label-for="input-horizontal">
-          <b-form-textarea input-id="tags-basic" v-model="appDocument.order_note" rows="4"></b-form-textarea>
-        </b-form-group>
-      </b-col>
-
-      <b-col sm="12" lg="12">
-        <order-entry-detail></order-entry-detail>
-      </b-col>
-
-      <b-col sm="12" lg="12">
-        <b-card no-body>
-          <b-tabs v-model="tabIndex" small card fill>
-            <b-tab title="NEW">
-              <b-card no-body>
-                <b-tabs pills small card>
-                  <b-tab
-                    v-for="product in appDocument.product_codes"
-                    :key="product"
-                    :title="product"
-                  >
-                    <order-entry :product="product"></order-entry>
-                  </b-tab>
-                </b-tabs>
-              </b-card>
-            </b-tab>
-            <b-tab :title="`ALL: ${appDocument.order_item_count}`">
-              <order-work></order-work>
-            </b-tab>
-            <b-tab title="Detail">
-              <b-col>
-                <b-row>
-                  <b-col>{{appDocument._id}}</b-col>
-                </b-row>
-                <b-row>
-                  <b-col>ID</b-col>
-                  <b-col>{{appDocument.jon}}</b-col>
-                </b-row>
-
-                <b-row>
-                  <b-col>Progress</b-col>
-                  <b-col>{{appDocument.order_progress}}</b-col>
-                </b-row>
-                <b-row>
-                  <b-col>Revision</b-col>
-                  <b-col>{{appDocument.order_revision}}</b-col>
-                </b-row>
-                <b-row>
-                  <b-col>Items</b-col>
-                  <b-col>{{appDocument.order_item_completed}} / {{appDocument.order_item_count}}</b-col>
-                </b-row>
-                <b-row>
-                  <b-col>Order Datetime</b-col>
-                  <b-col>{{appDocument.order_datetime}}</b-col>
-                </b-row>
-                <b-row>
-                  <b-col>Ack Datetime</b-col>
-                  <b-col>{{appDocument.ack_datetime}}</b-col>
-                </b-row>
-                <b-row>
-                  <b-col>Order Entry</b-col>
-                  <b-col>{{appDocument.order_clerk}}</b-col>
-                </b-row>
-              </b-col>
-            </b-tab>
-            <b-tab title="Shipping"></b-tab>
-            <b-tab title="Audit Log">
-              <b-list-group>
-                <div v-for="log in appDocument.order_log" :key="log.seq">
-                  <b-list-group-item href="#" class="flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-between">
-                      <small>{{log}}</small>
-                    </div>
-                  </b-list-group-item>
-                </div>
-              </b-list-group>
-            </b-tab>
-            <b-tab title="JSON">
-              <vue-json-pretty :data="appDocument"></vue-json-pretty>
-            </b-tab>
-          </b-tabs>
-        </b-card>
-      </b-col>
-    </b-row>
+  <div class="p-grid p-fluid">
+    <div class="p-col-12">
+      <div class="card card-w-title">
+        <h1>{{appDocument.customer}}</h1>
+        <div class="p-col-12 p-lg-9">
+          <div class="p-col-12">
+            <span class="p-float-label">
+              <InputText id="order_number" type="text" v-model="appDocument.order_number" />
+              <label for="order_number">order_number</label>
+            </span>
+          </div>
+          <div class="p-col-12">
+            <span class="p-float-label">
+              <!-- <Chips v-model="appDocument.product_codes" /> -->
+              <Chips id="codes" v-model="appDocument.product_codes" separator="," />
+              <label for="codes">Product Codes</label>
+            </span>
+          </div>
+        </div>
+        <div>
+          <order-entry-detail></order-entry-detail>
+        </div>
+        <TabView>
+          <TabPanel header="New">
+            <TabView>
+              <TabPanel v-for="product in appDocument.product_codes" :key="product" :title="product" :header="product">
+                <order-entry :product="product"></order-entry>
+              </TabPanel>
+            </TabView>
+          </TabPanel>
+          <TabPanel :header="`ALL: ${appDocument.order_item_count}`">
+            <order-work></order-work>
+          </TabPanel>
+          <TabPanel header="Details">
+            <div class="p-col-12">
+              <Editor v-model="appDocument.order_note" editorStyle="height: 320px" />
+            </div>
+            <div class="p-grid p-col-12">
+              <div class="p-col-4">
+                <span class="p-float-label">
+                  <InputText id="jon" type="text" v-model="appDocument.jon" />
+                  <label for="jon">jon</label>
+                </span>
+              </div>
+              <div class="p-col-4">
+                <span class="p-float-label">
+                  <InputText id="id" type="text" v-model="appDocument._id" />
+                  <label for="id">id</label>
+                </span>
+              </div>
+              <div class="p-col-4">
+                <span class="p-float-label">
+                  <InputText
+                    id="order_datetime"
+                    type="text"
+                    v-model="appDocument.order_datetime"
+                    readonly
+                  />
+                  <label for="order_datetime">order_datetime</label>
+                </span>
+              </div>
+              <div class="p-col-4">
+                <span class="p-float-label">
+                  <InputText id="order_progress" type="text" v-model="appDocument.order_progress" />
+                  <label for="order_progress">order_progress</label>
+                </span>
+              </div>
+              <div class="p-col-4">
+                <span class="p-float-label">
+                  <InputText id="order_revision" type="text" v-model="appDocument.order_revision" />
+                  <label for="order_revision">order_revision</label>
+                </span>
+              </div>
+              <div class="p-col-4">
+                <span class="p-float-label">
+                  <InputText id="ack_datetime" type="text" v-model="appDocument.ack_datetime" />
+                  <label for="ack_datetime">ack_datetime</label>
+                </span>
+              </div>
+              <div class="p-col-3">
+                <span class="p-float-label">
+                  <InputText
+                    id="order_item_count"
+                    type="text"
+                    v-model="appDocument.order_item_count"
+                  />
+                  <label for="order_item_count">order_item_count</label>
+                </span>
+              </div>
+              <div class="p-col-3">
+                <span class="p-float-label">
+                  <InputText
+                    id="order_item_completed"
+                    type="text"
+                    v-model="appDocument.order_item_completed"
+                  />
+                  <label for="order_item_completed">order_item_completed</label>
+                </span>
+              </div>
+              <div class="p-col-3">
+                <span class="p-float-label">
+                  <InputText id="order_clerk" type="text" v-model="appDocument.order_clerk" />
+                  <label for="order_clerk">order_clerk</label>
+                </span>
+              </div>
+            </div>
+          </TabPanel>
+          <TabPanel header="Shipping"></TabPanel>
+          <TabPanel header="Audit Log">
+            <div v-for="log in appDocument.order_log" :key="log.seq">
+              <Message :closable="false">{{log}}</Message>
+            </div>
+          </TabPanel>
+          <TabPanel header="JSON">
+            <vue-json-pretty :data="appDocument"></vue-json-pretty>
+          </TabPanel>
+          <TabPanel header="JSON Entry">
+            <vue-json-pretty :data="newOrders"></vue-json-pretty>
+          </TabPanel>
+        </TabView>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -146,8 +142,8 @@ import VueJsonPretty from "vue-json-pretty";
 
 export default {
   components: {
-    "order-work": OrderWork,
-    "order-entry": OrderEntry,
+    OrderWork,
+    OrderEntry,
     OrderEntryDetail,
     VueJsonPretty
   },
@@ -164,7 +160,7 @@ export default {
     ...mapActions(namespaced, ["FETCH_DOCUMENT"])
   },
   computed: {
-    ...mapGetters(namespaced, ["appDocument"]),
+    ...mapGetters(namespaced, ["newOrders", "appDocument"]),
     orderItemWorking: function() {
       return (
         this.appDocument.order_item_count -
@@ -183,4 +179,6 @@ export default {
 	***
 !-->
 <style scoped>
+div{
+}
 </style>

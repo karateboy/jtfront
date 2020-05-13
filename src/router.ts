@@ -61,7 +61,7 @@ export default new Router({
 		},
 		{
 			path: '/product/:id',
-			name: 'Customer Details',
+			name: 'Product Details',
 			component: () => import('./pages/ProductDocument.vue'),
 		},
 

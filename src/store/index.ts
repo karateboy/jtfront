@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import customer from "./customer.js"
-import order from "./order.js"
-import material from "./material.js"
-import product from "./product.js"
-import work from "./work.js"
+import customer from "./customer"
+import order from "./order"
+import material from "./material"
+import product from "./product"
+import work from "./work"
+// const work = require("./work")
 
 Vue.use(Vuex)
 

@@ -54,8 +54,46 @@ const getters = {
 
 const mutations = {
     SET_NEW_ORDERS(state, data) {
+        let now = new Date();
+        let today = now;
+        console.log(today);
+        let newOrder = []
         // state.list.splice(0, state.newOrders.length);
-        state.newOrders = data;
+        for(let item of data){
+            let newItem = {};
+            newItem.work_id = item._id;
+            newItem.jwn = "NEW";
+            newItem.SKU_code = item.product_code + "-" +item.product_number ;
+            newItem.SKU_number = item.ptn;
+            newItem.SKU_customer = item.ext_ref;
+            newItem.entry_datetime = now;
+            newItem.due_date = today;
+            newItem.stock = item.stock;
+            newItem.order_qty = 0;
+            newItem.work_qty = 0;
+            newItem.print_type = item.print_type;
+            newItem.work_type = "#FFF";
+            newItem.unit_price = 0;
+            newItem.work_progress = "NEW";
+
+            newOrder.push(newItem);
+        // "work_id": "5ea90ccadc190000ab058d6c",
+        // "jwn": "444715",
+        
+        // "due_date": "2020-03-10",
+        // "SKU_code": "LLIT-0769",
+        // "SKU_number": "55913",
+        // "SKU_customer": null,
+        // "order_qty": "3100",
+        // "work_qty": "3100",
+        // "print_type": "HPWS6900",
+        // "work_type": "#F00",
+        // "unit_price": "0",
+        // "work_progress": "DONE"
+        }
+        console.log(newOrder);
+        state.newOrders = newOrder;
+        state.appDocument.newOrders = newOrder;
         // state.list = data;
     },
 

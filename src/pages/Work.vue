@@ -2,6 +2,7 @@
   <div class="p-card">
     <div class="p-card-body">
       <DataTable
+        class="p-datatable-responsive p-datatable-borderless"
         :value="list"
         ref="dt"
         :key="list._id"
@@ -59,12 +60,6 @@
               v-model="filters['pcns']"
               class="p-column-filter"
               placeholder="JT Code"
-            />
-            <InputText
-              type="text"
-              v-model="filters['product.ext_ref']"
-              class="p-column-filter"
-              placeholder="Customer Code"
             />
           </template>
           <template #body="product">
@@ -157,10 +152,7 @@ export default {
     }
     if (this.databasePath.includes("/work/customer/")) {
       // console.log("List " + this.databasePath);
-      this.$store.dispatch(
-        namespaced + "/FETCH_FILTERED_LIST",
-        this.databasePath
-      );
+      this.$store.dispatch(namespaced + "/FETCH_FILTERED_LIST", this.databasePath);
       // this.pageList = store.filtered_list;
     }
     // if (this.databasePath.includes("/customer")) {

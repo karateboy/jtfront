@@ -1,16 +1,20 @@
 <template>
-  <div>
+  <div class="p-col-12">
     <b-form @input="onChange" @reset="onReset">
-      <b-form-group :label="`${product}-`" label-cols="2" label-align="right" class="mb-0">
-        <b-input-group>
-          <b-form-input
-            v-model="filter"
-            type="search"
-            id="filterInput"
-            placeholder="Type to Search"
-          ></b-form-input>
-        </b-input-group>
-      </b-form-group>
+      <div class="p-grid p-col-12">
+        <div class="p-col-4">
+          <span class="p-float-label">
+            <InputText v-model="filter" type="search" id="filterInput" />
+            <label for="filterInput">Juih-Tay SKU</label>
+          </span>
+        </div>
+        <div class="p-col-4">
+          <span class="p-float-label">
+            <InputText v-model="filter2" type="search" id="filterInput2" />
+            <label for="filterInput2">{{this.product}} SKU</label>
+          </span>
+        </div>
+      </div>
     </b-form>
 
     <div v-if="showList">
@@ -94,6 +98,7 @@ export default {
       list: [],
       showList: false,
       filter: "",
+      filter2:"",
       filterOn: ["product_code", "product_number", "ext_ref"],
 
       fields: [
@@ -131,8 +136,9 @@ export default {
       // this.selected = this.selected.concat(itemSelected);
       // this.selected = Array.from(new Set(this.selected));
       this.selected = items;
-      this.$store.commit("order" + "/SET_NEW_ORDERS", this.selected);
+      this.$store.commit("order/SET_NEW_ORDERS", this.selected);
 
+      console.log("HERE");
       console.log(this.selected);
     },
     selectAllRows() {
