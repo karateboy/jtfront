@@ -11,7 +11,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isAuthenticated: false,
+    // isAuthenticated: false,
+    isAuthenticated: true,
     userInfo: {
       _id: "",
       name: "",

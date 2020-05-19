@@ -7,7 +7,7 @@
         ref="dt"
         :key="list._id"
         :scrollable="true"
-        scrollHeight="750px"
+        scrollHeight="700px"
         :filters="filters"
         :selection.sync="selectedItems"
         :rowHover="true"
@@ -64,9 +64,11 @@
           </template>
           <template #body="product">
             <a :href="`product/${product.data.ptn}`">{{product.data.pcns}}</a>
-            <sub :v-if="product.data.product.ext_ref"><br/>{{product.data.product.ext_ref}}</sub>
+            <sub :v-if="product.data.product.ext_ref">
+              <br />
+              {{product.data.product.ext_ref}}
+            </sub>
           </template>
-
         </Column>
         <Column field="product.ext_ref" header="ext_ref" headerStyle="display: false">
           <template #filter>
@@ -139,9 +141,8 @@ export default {
       databasePath: this.$route.path,
       tableTitle: "List of Work",
       filters: {},
-
       columns: null,
-      selectedItems: null
+      selectedItems: null,
     };
   },
   mounted() {
@@ -152,7 +153,10 @@ export default {
     }
     if (this.databasePath.includes("/work/customer/")) {
       // console.log("List " + this.databasePath);
-      this.$store.dispatch(namespaced + "/FETCH_FILTERED_LIST", this.databasePath);
+      this.$store.dispatch(
+        namespaced + "/FETCH_FILTERED_LIST",
+        this.databasePath
+      );
       // this.pageList = store.filtered_list;
     }
     // if (this.databasePath.includes("/customer")) {
@@ -160,8 +164,9 @@ export default {
     //   this.sortDesc = true;
     // }
   },
+
   methods: {
-    ...mapActions(namespaced, ["FETCH_LIST", "FETCH_FILTERED_LIST"])
+    ...mapActions(namespaced, ["FETCH_LIST", "FETCH_FILTERED_LIST"]),
   },
   computed: {
     ...mapGetters(namespaced, ["list", "filtered_list"])

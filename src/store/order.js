@@ -54,11 +54,11 @@ const getters = {
 
 const mutations = {
     SET_NEW_ORDERS(state, data) {
+        let currentOrder = state.appDocument;
         let now = new Date();
         let today = now;
-        console.log(today);
-        let newOrder = []
-        // state.list.splice(0, state.newOrders.length);
+        let newJobs = []
+        // state.list.splice(0, state.newJobss.length);
         for(let item of data){
             let newItem = {};
             newItem.work_id = item._id;
@@ -76,25 +76,13 @@ const mutations = {
             newItem.unit_price = 0;
             newItem.work_progress = "NEW";
 
-            newOrder.push(newItem);
-        // "work_id": "5ea90ccadc190000ab058d6c",
-        // "jwn": "444715",
-        
-        // "due_date": "2020-03-10",
-        // "SKU_code": "LLIT-0769",
-        // "SKU_number": "55913",
-        // "SKU_customer": null,
-        // "order_qty": "3100",
-        // "work_qty": "3100",
-        // "print_type": "HPWS6900",
-        // "work_type": "#F00",
-        // "unit_price": "0",
-        // "work_progress": "DONE"
+            newJobs.push(newItem);
         }
-        console.log(newOrder);
-        state.newOrders = newOrder;
-        state.appDocument.newOrders = newOrder;
-        // state.list = data;
+        state.newOrders = newJobs;
+        currentOrder.newOrders = newJobs;
+
+        state.appDocument = currentOrder;
+        console.log(state.appDocument.newOrders);
     },
 
     SET_LIST(state, data) {
@@ -120,6 +108,10 @@ const mutations = {
 };
 
 const actions = {
+    UPDATE_ORDER({commit}, newJobs){
+        commit('SET_NEW_ORDERS', newJobs);
+    },
+
     FETCH_LIST({ commit }, db) {
         moduleApi.list(db, "")
             .then(response => {

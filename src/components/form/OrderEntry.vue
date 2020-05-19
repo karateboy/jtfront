@@ -116,10 +116,10 @@ export default {
   },
   mounted() {},
   methods: {
-    removeTags() {
-      console.log("!@#@!$!@$!@");
-      this.$store.commit("order" + "/SET_NEW_ORDERS", this.selected);
-    },
+    // removeTags() {
+    //   console.log("!@#@!$!@$!@");
+    //   this.$store.commit("order" + "/SET_NEW_ORDERS", this.selected);
+    // },
 
     onRowSelected(items) {
       var itemSelected = [];
@@ -135,11 +135,8 @@ export default {
       });
       // this.selected = this.selected.concat(itemSelected);
       // this.selected = Array.from(new Set(this.selected));
-      this.selected = items;
-      this.$store.commit("order/SET_NEW_ORDERS", this.selected);
-
-      console.log("HERE");
-      console.log(this.selected);
+      // this.$store.commit("order" + "/SET_NEW_ORDERS", item);
+      this.$store.dispatch("order" + "/UPDATE_ORDER", items);
     },
     selectAllRows() {
       this.$refs.selectableTable.selectAllRows();

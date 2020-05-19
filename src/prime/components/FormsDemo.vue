@@ -208,7 +208,7 @@
 		<div class="p-col-12">
 			<div class="card card-w-title">
 				<h1>Editor</h1>
-				<Editor v-model="editorValue" editorStyle="height: 320px"/>
+				<Editor readonly v-model="editorValue" editorStyle="height: 320px"/>
 			</div>
 		</div>
 

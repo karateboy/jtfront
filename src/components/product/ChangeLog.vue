@@ -1,21 +1,17 @@
 <template>
-  <b-container fluid>
-    <b-row>
-      <b-table
-        striped
-        hover
-        borderless
-        small
-        :fields="fields"
-        :items="appDocument.change_log"
-        :sort-by.sync="sortBy"
-        :sort-desc.sync="sortDesc"
-      >
-        <!-- A virtual column -->
-        <template v-slot:cell(index)="dataList">{{ dataList.index+1 }}</template>
-      </b-table>
-    </b-row>
-  </b-container>
+  <DataTable
+    :value="appDocument.change_log"
+    sortField="datetime"
+    :sortOrder="-1"
+    :resizableColumns="true"
+    columnResizeMode="fit"
+  >
+    <Column field="datetime" header="datetime" :sortable="true"></Column>
+    <Column field="change_type" header="change_type" :sortable="true"></Column>
+    <Column field="change_detail" header="change_detail" :sortable="true"></Column>
+    <Column field="entry" header="entry" :sortable="true"></Column>
+    <Column field="filename" header="filename" :sortable="true"></Column>
+  </DataTable>
 </template>
 
 
@@ -31,21 +27,8 @@ import { mapGetters } from "vuex";
 const namespaced = "product";
 
 export default {
-  props: {
-    printing_seq: Array
-  },
   data() {
     return {
-      sortBy: "datetime",
-      sortDesc: true,
-      fields: [
-        { key: "index", label: "x" },
-        "change_detail",
-        "change_type",
-        "datetime",
-        "entry",
-        "filename"
-      ]
     };
   },
   mounted() {

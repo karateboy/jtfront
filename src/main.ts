@@ -87,16 +87,16 @@ axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? "http://192.16
 
 apiService.init()
 
-// router.beforeEach((to, from, next) => {
-//   if (store.state.isAuthenticated)
-//     next()
-//   else {
-//     if (to.name == 'login')
-//       next()
-//     else
-//       next({ name: 'login' })
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  if (store.state.isAuthenticated)
+    next()
+  else {
+    if (to.name == 'login')
+      next()
+    else
+      next({ name: 'login' })
+  }
+})
 
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
@@ -170,5 +170,25 @@ Vue.component('ValidationMessage', ValidationMessage);
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
+  data: {
+    window: {
+      width: 0,
+      height: 0
+    }
+  },
+  created() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.handleResize);
+  },
+  methods: {
+    handleResize() {
+      this.window.width = window.innerWidth;
+      this.window.height = window.innerHeight;
+      // console.log(this.window.height);
+    }
+  }
 }).$mount('#app');

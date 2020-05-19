@@ -117,6 +117,7 @@
           </TabPanel>
           <TabPanel header="JSON Entry">
             <vue-json-pretty :data="newOrders"></vue-json-pretty>
+            <vue-json-pretty :data="appDocument.newOrders"></vue-json-pretty>
           </TabPanel>
         </TabView>
       </div>
@@ -157,7 +158,7 @@ export default {
     this.$store.dispatch(namespaced + "/FETCH_DOCUMENT", this.$route.path);
   },
   methods: {
-    ...mapActions(namespaced, ["FETCH_DOCUMENT"])
+    ...mapActions(namespaced, ["FETCH_DOCUMENT", "UPDATE_ORDER"])
   },
   computed: {
     ...mapGetters(namespaced, ["newOrders", "appDocument"]),
