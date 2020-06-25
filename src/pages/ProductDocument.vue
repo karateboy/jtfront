@@ -1,24 +1,24 @@
 <template>
   <div>
-    <div class="card card-w-title border-primary">
+    <div class="card card-w-title">
       <h1>{{appDocument.pcns}} {{appDocument._id}}</h1>
-      <div class="p-grid">
-        <div class="p-col-6">
-          <inline-input v-model="appDocument.product_name"></inline-input>
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-col-7">
+          <inline-input />
         </div>
 
-        <div class="p-col-3">
-          <span>{{ appDocument.unit_price }}</span>
+        <div class="p-col-5">
+          <product-sku-info />
         </div>
 
-        <div class="p-col-3">
+        <!-- <div class="p-col-12">
           <printing-substrate></printing-substrate>
-        </div>
+        </div>-->
       </div>
     </div>
 
     <color-sequence></color-sequence>
-    <production></production>
+    <!-- <production></production> -->
 
     <TabView>
       <TabPanel header="Active Order">
@@ -60,27 +60,29 @@ import { mapActions, mapGetters } from "vuex";
 const namespaced = "product";
 
 import InlineInput from "@/components/InlineInput";
+import ProductSkuInfo from "@/components/ProductSKUInfo";
 
 import ColorSequence from "@/components/product/ColorSequence";
-import Production from "@/components/product/Production";
+// import Production from "@/components/product/Production";
 import ChangeLog from "@/components/product/ChangeLog";
 import OrderHistory from "@/components/product/OrderHistory";
 import StorageRecord from "@/components/product/StorageRecord";
 import ShippingRecord from "@/components/product/ShippingRecord";
-import PrintingSubstrate from "@/components/product/PrintingSubstrate";
+// import PrintingSubstrate from "@/components/product/PrintingSubstrate";
 import VueJsonPretty from "vue-json-pretty";
 
 export default {
   components: {
     VueJsonPretty,
     InlineInput,
+    ProductSkuInfo,
     "color-sequence": ColorSequence,
-    production: Production,
+    // production: Production,
     "change-log": ChangeLog,
     "order-history": OrderHistory,
     "storage-record": StorageRecord,
-    "shipping-record": ShippingRecord,
-    "printing-substrate": PrintingSubstrate
+    "shipping-record": ShippingRecord
+    // "printing-substrate": PrintingSubstrate
   },
   data() {
     return {

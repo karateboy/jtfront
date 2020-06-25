@@ -52,13 +52,13 @@ export default new Router({
 			path: '/product',
 			name: "Product",
 			component: () => import('./pages/Product.vue'),
-			children: [
-				{
-					path: 'customer/:id',
-					name: 'ProductCustomerList',
-				}
-			]
 		},
+		{
+			path: '/product/customer/:id',
+			name: "Product By Customer",
+			component: () => import('./pages/Product.vue'),
+		},
+
 		{
 			path: '/product/:id',
 			name: 'Product Details',
@@ -105,16 +105,11 @@ export default new Router({
 			path: '/material',
 			name: "Material",
 			component: () => import('./pages/Material.vue'),
-			children: [
-				{
-					path: 'customer/:id',
-					name: 'MaterialCustomerList',
-				},
-				{
-					path: ':id',
-					name: 'MaterialDocument',
-				}
-			]
+		},
+		{
+			path: '/material/:id',
+			name: "Material Deatils",
+			component: () => import('./pages/MaterialDocument.vue'),
 		},
 
 		///prime vue paths

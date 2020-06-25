@@ -3,7 +3,7 @@
 		<div class="p-col-12">
 			<div class="card card-w-title">
 				<h1>DataTable</h1>
-				<DataTable :value="dataTableCars" class="p-datatable-responsive" :selection.sync="dataTableSelectedCar1" selectionMode="single" dataKey="vin" :paginator="true" :rows="10" :filters="filters">
+				<DataTable :value="dataTableCars" class="p-datatable-sm" :selection.sync="dataTableSelectedCar1" selectionMode="single" dataKey="vin" :paginator="true" :rows="10" :filters="filters">
 					<template #header>
 						List of Cars
 					</template>
@@ -69,7 +69,7 @@
 
         <div class="p-col-12">
 			<div class="card card-w-title">
-				<DataTable :value="dataTableCars" class="p-datatable-responsive p-datatable-borderless" :selection.sync="dataTableSelectedCar2" selectionMode="single" dataKey="vin" :paginator="true" :rows="10">
+				<DataTable :value="dataTableCars" class="p-datatable-sm p-datatable-borderless" :selection.sync="dataTableSelectedCar2" selectionMode="single" dataKey="vin" :paginator="true" :rows="10">
                     <template #header>Borderless DataTable</template>
 					<Column field="vin" header="Vin" :sortable="true">
                         <template #body="slotProps">

@@ -1,8 +1,8 @@
 import { ApiService } from '@/api/apiServices'
 
 const moduleApi = {
-    list(type, params) {
-        return ApiService.query("/material", {
+    list(collection, params) {
+        return ApiService.query(collection, {
             params: params
         });
     },
@@ -28,24 +28,44 @@ const moduleApi = {
 const namespaced = true;
 
 const state = {
-    list: []
+    list: [], 
+    appDocument: []
+
 };
 
 const getters = {
     list: state => {
         return state.list;
-    }
+    },
+
+    appDocument: state => {
+        return state.appDocument;
+    },
+
 };
 
 const mutations = {
     SET_LIST(state, data) {
+        state.list.splice(0, state.list.length);
         state.list = data;
-    },
+        // for(let item of data){
+        //    state.list.push(item)
+        // }
+     },
+
+     SET_DOCUMENT(state, data) {
+        // console.log(data);
+        state.appDocument = data;
+        // state.list.splice(0, state.appDocument.length);
+        // for(let item of data){
+        //    state.appDocument.push(item)
+        // }
+     },
 };
 
 const actions = {
-    FETCH_LIST({ commit }) {
-        moduleApi.list("")
+    FETCH_LIST({ commit }, db) {
+        moduleApi.list(db, "")
         .then(response => {
             let productList = []
             for (let c of response.data) {
@@ -53,6 +73,12 @@ const actions = {
             }
             commit('SET_LIST', productList);
         })
+    },
+    FETCH_DOCUMENT({ commit }, db) {
+        moduleApi.list(db, "")
+            .then(response => {
+                commit('SET_DOCUMENT', response.data);
+            })
     },
 };
 

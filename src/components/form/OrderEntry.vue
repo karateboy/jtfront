@@ -1,77 +1,53 @@
 <template>
-  <div class="p-col-12">
-    <b-form @input="onChange" @reset="onReset">
-      <div class="p-grid p-col-12">
-        <div class="p-col-4">
-          <span class="p-float-label">
-            <InputText v-model="filter" type="search" id="filterInput" />
-            <label for="filterInput">Juih-Tay SKU</label>
-          </span>
-        </div>
-        <div class="p-col-4">
-          <span class="p-float-label">
-            <InputText v-model="filter2" type="search" id="filterInput2" />
-            <label for="filterInput2">{{this.product}} SKU</label>
-          </span>
-        </div>
+  <div class="p-grid">
+    <div class="p-col-12 p-grid">
+      <div class="p-field p-col-4">
+        <label for="product_number">Select A Code</label>
+        <Dropdown v-model="selectedCode" :options="appDocument.product_codes" placeholder="Select a Code" @change="onCodeChange" />
       </div>
-    </b-form>
+      <div class="p-field  p-col-4" v-if="selectedCode">
+        <label for="product_number">{{selectedCode}} - XXXX</label>
+        <InputText
+          v-model="filters['product_number']"
+          type="search"
+          :id="`searchSKU`"
+          @input="onChange()"
+          placeholder="Input 3 or More digit"
+        />
+      </div>
+      <div class="p-field p-col-4"  v-if="selectedCode">
+        <label for="ext_ref">{{selectedCode}} Reference</label>
+        <InputText
+          v-model="filters['ext_ref']"
+          type="search"
+          :id="`searchRef`"
+          @input="onChange"
+          :placeholder="`${selectedCode} SKU`"
+        />
+      </div>
+    </div>
 
-    <div v-if="showList">
-      <!-- <div>
-        <b-card-group deck>
-          <div v-for="item in selected" :key="item._id">
-            <b-card class="text-center" size="sm">
-              <b-card-text>
-                <h6>{{item.product_code}}-{{item.product_number}} {{item.product_spec}}</h6>
-                <p>
-                  <small>{{item.ext_ref}}</small>
-                </p>
-                <p>
-                  <small>{{item.print_type}}</small>
-                </p>
-              </b-card-text>
-            </b-card>
-          </div>
-        </b-card-group>
-      </div>-->
-
-      <b-table
-        striped
-        hover
-        small
-        show-empty
-        ref="selectableTable"
-        selectable
-        :select-mode="selectMode"
-        :items="list"
-        :fields="fields"
-        :filter="filter"
-        :filterIncludedFields="filterOn"
-        @row-selected="onRowSelected"
+    <div v-if="showList" class="p-col-12">
+      <DataTable
+      class="p-datatable-sm"
+        :value="list"
+        :filters="filters"
+        :selection.sync="selectedProducts"
+        selectionMode="multiple"
+        data-key="ptn"
+        :metaKeySelection="false"
+        :paginator="true"
+        :rows="100"
+        @row-select="onRowSelect"
+        @row-unselect="onRowUnselect"
       >
-        <!-- A virtual column -->
-        <template v-slot:cell(ticker)="{ rowSelected }">
-          <template v-if="rowSelected">
-            <span aria-hidden="true">&check;</span>
-            <span class="sr-only">Selected</span>
-          </template>
-          <template v-else>
-            <span aria-hidden="true">&nbsp;</span>
-            <span class="sr-only">Not selected</span>
-          </template>
-        </template>
-        <template v-slot:cell(name)="data">
-          <span>
-            <a
-              :href="`/product/${data.item.ptn}?${data.item._id}`"
-              target="_blank"
-            >{{data.item.product_code }}-{{ data.item.product_number }}</a>
-          </span>
-        </template>
-
-        <template v-slot:cell(index)="data">{{ data.index+1 }}</template>
-      </b-table>
+        <Column field="product_code" header="Code" :sortable="true" :excludeGlobalFilter="true"></Column>
+        <Column field="product_number" header="Number" :sortable="true" filterMatchMode="contains"></Column>
+        <Column field="ext_ref" header="Number" :sortable="true" filterMatchMode="contains"></Column>
+        <Column field="product_name" header="Name" :sortable="true"></Column>
+        <Column field="print_type" header="print_type" :sortable="true"></Column>
+        <Column field="stock" header="stock" :sortable="true"></Column>
+      </DataTable>
     </div>
     <!-- {{new_orders}} -->
   </div>
@@ -79,6 +55,9 @@
 
 <script>
 import { ApiService } from "@/api/apiServices";
+import { mapActions, mapGetters } from "vuex";
+
+const namespaced = "order";
 
 const moduleApi = {
   list(collection, params) {
@@ -88,41 +67,40 @@ const moduleApi = {
   }
 };
 export default {
-  props: {
-    product: String
-  },
   data() {
     return {
-      selectMode: "multi",
-      selected: [],
+      selectedCode: null,
+      selectedProducts: [],
       list: [],
       showList: false,
-      filter: "",
-      filter2:"",
-      filterOn: ["product_code", "product_number", "ext_ref"],
-
-      fields: [
-        { key: "ticker", label: "T" },
-        { key: "index", label: "Seq" },
-        { key: "name", label: "รหัสสินค้า" },
-        { key: "product_spec" },
-        { key: "ext_ref" },
-        { key: "product_name" },
-        { key: "paper_code" },
-        { key: "stock" },
-        { key: "print_type" }
-      ]
+      filters: {}
+      // filter: null,
+      // fields: [
+      //   { key: "ticker", label: "T" },
+      //   { key: "index", label: "Seq" },
+      //   { key: "name", label: "รหัสสินค้า" },
+      //   { key: "product_spec" },
+      //   { key: "ext_ref" },
+      //   { key: "product_name" },
+      //   { key: "paper_code" },
+      //   { key: "stock" },
+      //   { key: "print_type" }
+      // ]
     };
   },
   mounted() {},
   methods: {
-    // removeTags() {
-    //   console.log("!@#@!$!@$!@");
-    //   this.$store.commit("order" + "/SET_NEW_ORDERS", this.selected);
-    // },
+    // ...mapActions(namespaced, ["FETCH_DOCUMENT", "UPDATE_ORDER"]),
+    ...mapActions(namespaced, ["UPDATE_ORDER"]),
+    onRowUnselect(items) {
+      console.log(items);
+    },
 
-    onRowSelected(items) {
+    onRowSelect(items) {
+      // console.log("itemsssssssssssssssss");
+      // console.log(items);
       var itemSelected = [];
+      items = this.selectedProducts;
       items.forEach(function(item) {
         // console.log(item);
         var order = {
@@ -133,49 +111,43 @@ export default {
         };
         itemSelected.push(order);
       });
-      // this.selected = this.selected.concat(itemSelected);
-      // this.selected = Array.from(new Set(this.selected));
-      // this.$store.commit("order" + "/SET_NEW_ORDERS", item);
+      // console.log(itemSelected);
+
       this.$store.dispatch("order" + "/UPDATE_ORDER", items);
     },
-    selectAllRows() {
-      this.$refs.selectableTable.selectAllRows();
-    },
-    clearSelected() {
-      this.$refs.selectableTable.clearSelected();
-    },
-    onSubmit(evt) {
-      evt.preventDefault();
-      console.log(this.selected);
-      alert(JSON.stringify(this.selected));
-      this.$store.commit("order" + "/SET_NEW_ORDERS", this.selected);
+    onCodeChange(){
+      this.filters = {};
+      this.showList = false;
+      this.list = [];
 
-      // this.new_orders.push(this.new_order);
-      this.selected = [];
-    },
-    onReset(evt) {
-      evt.preventDefault();
-      this.new_order = {};
-      this.$nextTick(() => {
-        this.show = true;
-      });
     },
     onChange() {
       var re = /\d{3,}/;
-      re.test(this.filter);
-      if (this.filter.length > 5 || re.test(this.filter)) {
+      var fetch_data = false;
+      re.test(this.filters.product_number);
+      if (re.test(this.filters.product_number)) {
+        fetch_data = true;
+      }
+
+      if (this.filters.ext_ref) {
+        if (this.filters.ext_ref.length > 3) {
+          fetch_data = true;
+        }
+      }
+      if (fetch_data) {
         this.showList = true;
-        moduleApi
-          .list("/product/customer/" + this.product, "")
-          .then(response => {
-            this.list = response.data;
-          });
+        moduleApi.list("/product/customer/" + this.selectedCode, "").then(response => {
+          this.list = response.data;
+        });
       } else {
         this.showList = false;
       }
     }
   },
-  computed: {}
+  computed: {
+    ...mapGetters(namespaced, ["appDocument"])
+    // ...mapGetters(namespaced, ["new_jobs", "appDocument"])
+  }
 };
 </script>
 

@@ -76,7 +76,7 @@ import '@fullcalendar/timegrid/main.min.css';
 import './assets/layout/layout.scss';
 import store from './store'
 import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+// import 'bootstrap-vue/dist/bootstrap-vue.css'
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import axios from 'axios'
 import apiService from "@/api/apiServices"
@@ -99,7 +99,7 @@ router.beforeEach((to, from, next) => {
 })
 
 Vue.use(BootstrapVue)
-Vue.use(BootstrapVueIcons)
+// Vue.use(BootstrapVueIcons)
 Vue.use(ToastService);
 Vue.directive('tooltip', Tooltip);
 

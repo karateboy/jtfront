@@ -1,43 +1,40 @@
 <template>
-  <b-container fluid>
-    <b-row>
-      <b-col lg="9">
-        <b-card no-body>
-          <b-tabs v-model="tabIndex" small card fill>
-            <b-tab title="Order"></b-tab>
-            <b-tab title="Print Out">
-              <!-- <work-print-out :appDocument="appDocument"></work-print-out> -->
-              <work-print-out></work-print-out>
-            </b-tab>
-            <b-tab title="Related Work"></b-tab>
-            <b-tab title="Scanned PDF"></b-tab>
-            <b-tab title="Shipping">
-              <shipping-record :records="appDocument.shipping_record"></shipping-record>
-            </b-tab>
-            <b-tab title="Logs">
-              <work-log :records="appDocument.work_log"></work-log>
-            </b-tab>
-            <b-tab title="JSON">
-              <vue-json-pretty :data="appDocument"></vue-json-pretty>
-            </b-tab>
-          </b-tabs>
-        </b-card>
-      </b-col>
-      <b-col lg="3" class="d-print-none">
-        <b-list-group>
-          <div v-for="log in appDocument.work_log" :key="log.seq">
-            <b-list-group-item href="#" class="flex-column align-items-start">
-              <div class="d-flex w-100 justify-content-between">
-                <h6 class="mb-1">{{log.station}} {{log.station_group}} {{log.station_id}}</h6>
-                <small>{{log.start_datetime}}</small>
-              </div>
-              <small class="text-muted">{{log.description}}</small>
-            </b-list-group-item>
-          </div>
-        </b-list-group>
-      </b-col>
-    </b-row>
-  </b-container>
+  <div class="p-grid">
+    <div class="p-col-12 d-none d-print-block">
+      <work-print-out></work-print-out>
+    </div>
+    <div class="p-col-12 p-md-9 d-print-none">
+      <TabView>
+        <TabPanel header="Print Out">
+          <work-print-out></work-print-out>
+        </TabPanel>
+        <TabPanel header="Related Work"></TabPanel>
+        <TabPanel header="Scanned PDF"></TabPanel>
+        <TabPanel header="Shipping">
+          <shipping-record :records="appDocument.shipping_record"></shipping-record>
+        </TabPanel>
+        <TabPanel header="Logs">
+          <work-log :records="appDocument.work_log"></work-log>
+        </TabPanel>
+        <TabPanel header="JSON">
+          <vue-json-pretty :data="appDocument"></vue-json-pretty>
+        </TabPanel>
+      </TabView>
+    </div>
+    <div class="p-col-12 p-md-3 d-print-none">
+      <b-list-group>
+        <div v-for="log in appDocument.work_log" :key="log.seq">
+          <b-list-group-item href="#" class="flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+              <h6 class="mb-1">{{log.station}} {{log.station_group}} {{log.station_id}}</h6>
+              <small>{{log.start_datetime}}</small>
+            </div>
+            <small class="text-muted">{{log.description}}</small>
+          </b-list-group-item>
+        </div>
+      </b-list-group>
+    </div>
+  </div>
 </template>
 
 
@@ -90,4 +87,9 @@ export default {
 	***
 !-->
 <style scoped>
+@media print {
+  ul.p-tabview-nav {
+    display: none !important;
+  }
+}
 </style>

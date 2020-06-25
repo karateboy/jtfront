@@ -2,6 +2,7 @@
   <div class="p-card">
     <div class="p-card-body">
       <DataTable
+      class="p-datatable-sm"
         :value="list"
         ref="dt"
         :key="list._id"
@@ -15,7 +16,7 @@
         :paginator="true"
         :pageLinkSize="10"
         :rows="100"
-        paginatorPosition="both"
+        paginatorPosition="top"
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
         :rowsPerPageOptions="[100,250,500]"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -61,7 +62,7 @@
           </template>
           <template #body="order">
             {{order.data.jon}}
-            <a :href="`order/${order.data.jon}`">
+            <a :href="`/order/${order.data.jon}`">
             {{order.data.order_number}}
             </a>
           </template>

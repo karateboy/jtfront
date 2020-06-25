@@ -31,13 +31,17 @@ const state = {
     list: [],
     filtered_list: [],
     appDocument: [],
-    newOrders: []
+    // newOrders: []
 };
 
 const getters = {
-    newOrders: state => {
-        return state.newOrders;
-    },
+    // newOrders: state => {
+    //     return state.newOrders;
+    // },
+
+    // new_jobs: state => {
+    //     return state.appDocument.new_jobs;
+    // },
 
     list: state => {
         return state.list;
@@ -53,8 +57,8 @@ const getters = {
 };
 
 const mutations = {
-    SET_NEW_ORDERS(state, data) {
-        let currentOrder = state.appDocument;
+    SET_NEW_JOBS(state, data) {
+        // let currentOrder = state.appDocument;
         let now = new Date();
         let today = now;
         let newJobs = []
@@ -75,14 +79,15 @@ const mutations = {
             newItem.work_type = "#FFF";
             newItem.unit_price = 0;
             newItem.work_progress = "NEW";
+            newItem.saved_to_db = false;
+            newItem.saved_datetime = null;
 
             newJobs.push(newItem);
         }
-        state.newOrders = newJobs;
-        currentOrder.newOrders = newJobs;
+        state.appDocument.new_jobs = newJobs;
 
-        state.appDocument = currentOrder;
-        console.log(state.appDocument.newOrders);
+        // state.appDocument = currentOrder;
+        console.log(state.appDocument.new_jobs);
     },
 
     SET_LIST(state, data) {
@@ -109,7 +114,7 @@ const mutations = {
 
 const actions = {
     UPDATE_ORDER({commit}, newJobs){
-        commit('SET_NEW_ORDERS', newJobs);
+        commit('SET_NEW_JOBS', newJobs);
     },
 
     FETCH_LIST({ commit }, db) {

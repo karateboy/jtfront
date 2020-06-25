@@ -13,7 +13,7 @@
 					<div class="p-col-6">
 						<Button type="button" label="DataTable" @click="toggleDataTable" />
 						<OverlayPanel ref="op2" appendTo="body" :showCloseIcon="true">
-							<DataTable :value="dataTableValue" style="width: 500px">
+							<DataTable :value="dataTableValue" class="p-datatable-sm" style="width: 500px">
 								<Column field="vin" header="Vin" :sortable="true"></Column>
 								<Column field="year" header="Year" :sortable="true"></Column>
 								<Column field="brand" header="Brand" :sortable="true"></Column>

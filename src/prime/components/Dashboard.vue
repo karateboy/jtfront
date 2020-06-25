@@ -160,7 +160,7 @@
 	<div class="p-col-12 p-lg-6">
 		<div class="card">
 			<h1 style="font-size:16px">Recent Sales</h1>
-			<DataTable :value="dataTableCars" class="p-datatable-responsive" :selection.sync="dataTableSelectedCar" selectionMode="single" dataKey="vin">
+			<DataTable :value="dataTableCars" class="p-datatable-sm" :selection.sync="dataTableSelectedCar" selectionMode="single" dataKey="vin">
 				<Column field="vin" header="Vin" :sortable="true"></Column>
 				<Column field="year" header="Year" :sortable="true"></Column>
 				<Column field="brand" header="Brand" :sortable="true"></Column>

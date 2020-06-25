@@ -2,7 +2,7 @@
   <div class="p-card">
     <div class="p-card-body">
       <DataTable
-        class="p-datatable-responsive p-datatable-borderless"
+      class="p-datatable-sm"
         :value="list"
         ref="dt"
         :key="list._id"
@@ -16,7 +16,7 @@
         :paginator="true"
         :pageLinkSize="10"
         :rows="100"
-        paginatorPosition="both"
+        paginatorPosition="top"
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
         :rowsPerPageOptions="[100,250,500]"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -50,7 +50,7 @@
             />
           </template>
           <template #body="work">
-            <a :href="`work/${work.data.jwn}`">{{work.data.jwn}}</a>
+            <a :href="`/work/${work.data.jwn}`">{{work.data.jwn}}</a>
           </template>
         </Column>
         <Column field="pcns" header="Codes">
@@ -63,7 +63,7 @@
             />
           </template>
           <template #body="product">
-            <a :href="`product/${product.data.ptn}`">{{product.data.pcns}}</a>
+            <a :href="`/product/${product.data.ptn}`">{{product.data.pcns}}</a>
             <sub :v-if="product.data.product.ext_ref">
               <br />
               {{product.data.product.ext_ref}}

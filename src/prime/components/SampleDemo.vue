@@ -167,7 +167,7 @@
 			<div class="p-col-12">
 				<div class="card card-w-title">
 					<h1>DataTable</h1>
-                    <DataTable :value="dataTableCars" class="p-datatable-responsive" :selection.sync="dataTableSelectedCar" selectionMode="single" dataKey="vin" :paginator="true" :rows="10" :filters="filters">
+                    <DataTable :value="dataTableCars" class="p-datatable-sm" :selection.sync="dataTableSelectedCar" selectionMode="single" dataKey="vin" :paginator="true" :rows="10" :filters="filters">
                         <template #header>
                             List of Cars
                         </template>

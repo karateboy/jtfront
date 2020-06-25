@@ -1,5 +1,6 @@
   <template>
   <DataTable
+  class="p-datatable-sm"
     :value="appDocument.storage_record"
     sortField="suid"
     :sortOrder="-1"
@@ -20,27 +21,19 @@
 	***-->
 <script>
 import { mapGetters } from "vuex";
-const namespaced = "product";
 
 export default {
   data() {
-    return {
-    };
+    return {};
   },
   mounted() {
     this.$store.appDocument;
   },
   computed: {
-    ...mapGetters(namespaced, ["appDocument"])
+    ...mapGetters("product", ["appDocument"])
   }
 };
 </script>
 
-
-
-<!--	***
-	BELOW IS STYLING OF WEBPAGE SCOPED	
-	***!-->
 <style scoped>
-
 </style>

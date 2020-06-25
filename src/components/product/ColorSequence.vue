@@ -1,27 +1,65 @@
 <template>
-  <b-card border-variant="danger" header="Printing">
-    <b-container fluid>
-      <b-row>
-        <b-col class="primary">
-          <span variant="primary">{{ appDocument.print_type}} = {{ appDocument.colors}} colors</span>
-        </b-col>
-        <b-col class="bg-info">{{ appDocument.laminate}} {{ appDocument.tape_code}}</b-col>
-        <b-col class="bg-info">{{ appDocument.dicut}} {{ appDocument.dicut_plate }}</b-col>
-      </b-row>
-      <b-row>
-        <b-table
-          striped
-          hover
-          small
-          v-bind:fields="fields"
-          v-bind:items="appDocument.printing_seq"
+  <div class="p-grid p-fluid">
+    <div class="p-col-12">
+      <div class="card card-w-title border-primary">
+        <h1>{{ appDocument.print_type}} = {{ appDocument.colors}} colors</h1>
+        <DataTable
+        class="p-datatable-sm"
+          :value="appDocument.printing_seq"
+          :rowHover="true"
+          :resizableColumns="true"
+          editMode="cell"
+          columnResizeMode="fit"
         >
-          <!-- A virtual column -->
-          <template v-slot:cell(index)="dataList">{{ dataList.index+1 }}</template>
-        </b-table>
-      </b-row>
-    </b-container>
-  </b-card>
+          <Column field="index" header="Index"></Column>
+          <Column field="ink" header="ink">
+            <template #editor="slotProps">
+              <InputText v-model="slotProps.data[slotProps.column.field]" />
+            </template>
+          </Column>
+          <Column field="mesh" header="mesh">
+            <template #editor="slotProps">
+              <InputText v-model="slotProps.data[slotProps.column.field]" />
+            </template>
+          </Column>
+          <Column field="ruling" header="ruling">
+            <template #editor="slotProps">
+              <InputText v-model="slotProps.data[slotProps.column.field]" />
+            </template>
+          </Column>
+          <Column field="seq" header="seq">
+            <template #editor="slotProps">
+              <InputText v-model="slotProps.data[slotProps.column.field]" />
+            </template>
+          </Column>
+          <Column field="stencil_id" header="stencil_id">
+            <template #editor="slotProps">
+              <InputText v-model="slotProps.data[slotProps.column.field]" />
+            </template>
+          </Column>
+        </DataTable>
+      </div>
+    </div>
+    <div class="p-col-4">
+      <div class="card card-w-title border-primary">
+        <h1>Laminate</h1>
+        {{ appDocument.laminate}} {{ appDocument.tape_code}}
+      </div>
+    </div>
+    <div class="p-col-4">
+      <div class="card card-w-title border-primary">
+        <h1>Dicut</h1>
+        {{ appDocument.dicut}} {{ appDocument.dicut_plate}}
+      </div>
+    </div>
+        <div class="p-col-4">
+      <div class="card card-w-title border-primary">
+        <h1>Oven</h1>
+        {{ appDocument.dicut}} {{ appDocument.dicut_plate}}
+      </div>
+    </div>
+
+  </div>
 </template>
 
 
@@ -42,6 +80,7 @@ export default {
   data() {
     return {
       search: "",
+      columns: null,
       fields: [
         { key: "index", label: "x" },
         "ink",

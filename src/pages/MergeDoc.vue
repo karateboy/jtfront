@@ -140,7 +140,7 @@ export default Vue.extend({
       if (form.mergeImageId.length === 0) {
         this.$bvModal
           .msgBoxOk("No image is selected!")
-          .then(value => {})
+          // .then(value => {})
           .catch(err => alert(err));
         return false;
       }
@@ -148,7 +148,7 @@ export default Vue.extend({
       if (form.tags.length === 0) {
         this.$bvModal
           .msgBoxOk("No tags!")
-          .then(value => {})
+          // .then(value => {})
           .catch(err => alert(err));
         return false;
       }

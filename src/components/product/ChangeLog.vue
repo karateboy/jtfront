@@ -1,5 +1,6 @@
 <template>
   <DataTable
+  class="p-datatable-sm"
     :value="appDocument.change_log"
     sortField="datetime"
     :sortOrder="-1"

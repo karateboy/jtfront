@@ -1,6 +1,7 @@
 <template>
   <div class="p-col-12" style="padding:0">
     <DataTable
+    class="p-datatable-sm"
       :value="appDocument.order_item"
       ref="dt"
       :filters="filters"

@@ -2,6 +2,7 @@
   <div class="p-card">
     <div class="p-card-body">
       <DataTable
+      class="p-datatable-sm"
         :value="list"
         ref="dt"
         :key="list._id"
@@ -15,21 +16,61 @@
         :paginator="true"
         :pageLinkSize="10"
         :rows="100"
-        paginatorPosition="both"
+        paginatorPosition="top"
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
         :rowsPerPageOptions="[100,250,500]"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       >
         <template #header>
           <div class="p-datatable-container">
-            <h4>List of {{pageTitle}} </h4>
+            <h4>List of {{pageTitle}}</h4>
             <InputText v-model="filters['global']" placeholder="Global Search" />
             <Button icon="pi pi-external-link" label="Export" @click="exportCSV($event)" />
           </div>
         </template>
 
-
         <Column selectionMode="multiple" headerStyle="width: 3em"></Column>
+        <Column field="material_type" header="material_type">
+          <template #filter>
+            <InputText
+              type="text"
+              v-model="filters['material_type']"
+              class="p-column-filter"
+              placeholder="Starts with"
+            />
+          </template>
+        </Column>
+        <Column field="material_code" header="material_code">
+          <template #filter>
+            <InputText
+              type="text"
+              v-model="filters['material_code']"
+              class="p-column-filter"
+              placeholder="Starts with"
+            />
+          </template>
+        </Column>
+
+        <Column field="supplier_ref" header="supplier_ref">
+          <template #filter>
+            <InputText
+              type="text"
+              v-model="filters['supplier_ref']"
+              class="p-column-filter"
+              placeholder="Starts with"
+            />
+          </template>
+        </Column>
+        <Column field="supplier" header="supplier">
+          <template #filter>
+            <InputText
+              type="text"
+              v-model="filters['supplier']"
+              class="p-column-filter"
+              placeholder="Starts with"
+            />
+          </template>
+        </Column>
         <Column field="id" header="id">
           <template #filter>
             <InputText
@@ -50,26 +91,6 @@
             />
           </template>
         </Column>
-        <Column field="material_code" header="material_code">
-          <template #filter>
-            <InputText
-              type="text"
-              v-model="filters['material_code']"
-              class="p-column-filter"
-              placeholder="Starts with"
-            />
-          </template>
-        </Column>
-        <Column field="material_type" header="material_type">
-          <template #filter>
-            <InputText
-              type="text"
-              v-model="filters['material_type']"
-              class="p-column-filter"
-              placeholder="Starts with"
-            />
-          </template>
-        </Column>
         <Column field="material_name" header="material_name">
           <template #filter>
             <InputText
@@ -80,7 +101,7 @@
             />
           </template>
         </Column>
-        <Column field="material_desc" header="material_desc">        </Column>
+        <Column field="material_desc" header="material_desc"></Column>
       </DataTable>
     </div>
   </div>
