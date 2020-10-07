@@ -146,23 +146,18 @@ export default {
     };
   },
   mounted() {
-    console.log(this.databasePath);
-    if (this.databasePath === "/work") {
+    if (this.$route.query.c) {
+      console.log("List " + this.databasePath + this.$route.query.c);
+      this.$store.dispatch(
+        namespaced + "/FETCH_LIST",
+        this.databasePath + "?customer=" + this.$route.query.c
+      );
+      // this.pageList = store.filtered_list;
+    } else {//} if (this.databasePath === "/work") {
       // console.log("List All");
       this.$store.dispatch(namespaced + "/FETCH_LIST", this.databasePath);
     }
-    if (this.databasePath.includes("/work/customer/")) {
-      // console.log("List " + this.databasePath);
-      this.$store.dispatch(
-        namespaced + "/FETCH_FILTERED_LIST",
-        this.databasePath
-      );
-      // this.pageList = store.filtered_list;
-    }
-    // if (this.databasePath.includes("/customer")) {
-    //   this.sortBy = "order_datetime";
-    //   this.sortDesc = true;
-    // }
+
   },
 
   methods: {

@@ -3,7 +3,11 @@
     <AppTopBar @menu-toggle="onMenuToggle" />
 
     <transition name="layout-sidebar">
-      <div :class="sidebarClass" @click="onSidebarClick" v-show="isSidebarVisible()">
+      <div
+        :class="sidebarClass"
+        @click="onSidebarClick"
+        v-show="isSidebarVisible()"
+      >
         <div class="layout-logo">
           <router-link to="/">
             <img alt="Logo" :src="logo" />
@@ -39,7 +43,38 @@ export default {
       mobileMenuActive: false,
       menu: [
         { label: "Dashboard", icon: "pi pi-fw pi-home", to: "/" },
-                {
+        {
+          label: "Juih Tay ERP",
+          icon: "pi pi-fw pi-search",
+          items: [
+            {
+              label: "Customer",
+              icon: "pi pi-fw pi-bookmark",
+              to: "/customer",
+            },
+            {
+              label: "Product",
+              icon: "pi pi-fw pi-bookmark",
+              to: "/product",
+            },
+            {
+              label: "Order",
+              icon: "pi pi-fw pi-bookmark",
+              to: "/order",
+            },
+            {
+              label: "Work",
+              icon: "pi pi-fw pi-bookmark",
+              to: "/work",
+            },
+            {
+              label: "Material",
+              icon: "pi pi-fw pi-bookmark",
+              to: "/material",
+            },
+          ],
+        },
+        {
           label: "Image Document",
           icon: "pi pi-fw pi-globe",
           badge: "9",
@@ -47,79 +82,16 @@ export default {
             {
               label: "Merge Document",
               icon: "pi pi-fw pi-th-large",
-              to: "/merge"
+              to: "/merge",
             },
-            { label: "Search", icon: "pi pi-fw pi-file", to: "/search" }
-          ]
+            { label: "Search", icon: "pi pi-fw pi-file", to: "/search" },
+            {
+              label: "User Management",
+              icon: "pi pi-fw pi-file",
+              to: "/userManagement",
+            },
+          ],
         },
-        {
-          label: "User Management",
-          icon: "pi pi-fw pi-file",
-          to: "/userManagement"
-        },
-        {
-          label: "JT Erp",
-          icon: "pi pi-fw pi-search",
-          items: [
-            {
-              label: "Customer",
-              icon: "pi pi-fw pi-bookmark",
-              to: "/customer"
-            },
-            {
-              label: "Product",
-              icon: "pi pi-fw pi-bookmark",
-              to: "/product"
-            },
-            {
-              label: "Order",
-              icon: "pi pi-fw pi-bookmark",
-              to: "/order"
-            },
-            {
-              label: "Work",
-              icon: "pi pi-fw pi-bookmark",
-              to: "/work"
-            },
-            {
-              label: "Material",
-              icon: "pi pi-fw pi-bookmark",
-              to: "/material"
-            }
-          ]
-        },
-        {
-          label: "Menu Modes",
-          icon: "pi pi-fw pi-cog",
-          items: [
-            {
-              label: "Static Menu",
-              icon: "pi pi-fw pi-bars",
-              command: () => (this.layoutMode = "static")
-            },
-            {
-              label: "Overlay Menu",
-              icon: "pi pi-fw pi-bars",
-              command: () => (this.layoutMode = "overlay")
-            }
-          ]
-        },
-        // {
-        //   label: "Menu Colors",
-        //   icon: "pi pi-fw pi-align-left",
-        //   items: [
-        //     {
-        //       label: "Dark",
-        //       icon: "pi pi-fw pi-bars",
-        //       command: () => (this.layoutColorMode = "dark")
-        //     },
-        //     {
-        //       label: "Light",
-        //       icon: "pi pi-fw pi-bars",
-        //       command: () => (this.layoutColorMode = "light")
-        //     }
-        //   ]
-        // },
         {
           label: "Components",
           icon: "pi pi-fw pi-globe",
@@ -128,7 +100,7 @@ export default {
             {
               label: "Sample Page",
               icon: "pi pi-fw pi-th-large",
-              to: "/sample"
+              to: "/sample",
             },
             { label: "Forms", icon: "pi pi-fw pi-file", to: "/forms" },
             { label: "Data", icon: "pi pi-fw pi-table", to: "/data" },
@@ -137,8 +109,8 @@ export default {
             { label: "Menus", icon: "pi pi-fw pi-plus", to: "/menus" },
             { label: "Messages", icon: "pi pi-fw pi-spinner", to: "/messages" },
             { label: "Charts", icon: "pi pi-fw pi-chart-bar", to: "/charts" },
-            { label: "Misc", icon: "pi pi-fw pi-upload", to: "/misc" }
-          ]
+            { label: "Misc", icon: "pi pi-fw pi-upload", to: "/misc" },
+          ],
         },
         {
           label: "Menu Hierarchy",
@@ -154,18 +126,18 @@ export default {
                   items: [
                     { label: "Submenu 1.1.1", icon: "pi pi-fw pi-bookmark" },
                     { label: "Submenu 1.1.2", icon: "pi pi-fw pi-bookmark" },
-                    { label: "Submenu 1.1.3", icon: "pi pi-fw pi-bookmark" }
-                  ]
+                    { label: "Submenu 1.1.3", icon: "pi pi-fw pi-bookmark" },
+                  ],
                 },
                 {
                   label: "Submenu 1.2",
                   icon: "pi pi-fw pi-bookmark",
                   items: [
                     { label: "Submenu 1.2.1", icon: "pi pi-fw pi-bookmark" },
-                    { label: "Submenu 1.2.2", icon: "pi pi-fw pi-bookmark" }
-                  ]
-                }
-              ]
+                    { label: "Submenu 1.2.2", icon: "pi pi-fw pi-bookmark" },
+                  ],
+                },
+              ],
             },
             {
               label: "Submenu 2",
@@ -177,28 +149,61 @@ export default {
                   items: [
                     { label: "Submenu 2.1.1", icon: "pi pi-fw pi-bookmark" },
                     { label: "Submenu 2.1.2", icon: "pi pi-fw pi-bookmark" },
-                    { label: "Submenu 2.1.3", icon: "pi pi-fw pi-bookmark" }
-                  ]
+                    { label: "Submenu 2.1.3", icon: "pi pi-fw pi-bookmark" },
+                  ],
                 },
                 {
                   label: "Submenu 2.2",
                   icon: "pi pi-fw pi-bookmark",
                   items: [
                     { label: "Submenu 2.2.1", icon: "pi pi-fw pi-bookmark" },
-                    { label: "Submenu 2.2.2", icon: "pi pi-fw pi-bookmark" }
-                  ]
-                }
-              ]
-            }
-          ]
-        }      ]
+                    { label: "Submenu 2.2.2", icon: "pi pi-fw pi-bookmark" },
+                  ],
+                },
+              ],
+            },
+            {
+              label: "Menu Modes",
+              icon: "pi pi-fw pi-cog",
+              items: [
+                {
+                  label: "Static Menu",
+                  icon: "pi pi-fw pi-bars",
+                  command: () => (this.layoutMode = "static"),
+                },
+                {
+                  label: "Overlay Menu",
+                  icon: "pi pi-fw pi-bars",
+                  command: () => (this.layoutMode = "overlay"),
+                },
+              ],
+            },
+            {
+              label: "Menu Colors",
+              icon: "pi pi-fw pi-align-left",
+              items: [
+                {
+                  label: "Dark",
+                  icon: "pi pi-fw pi-bars",
+                  command: () => (this.layoutColorMode = "dark"),
+                },
+                {
+                  label: "Light",
+                  icon: "pi pi-fw pi-bars",
+                  command: () => (this.layoutColorMode = "light"),
+                },
+              ],
+            },
+          ],
+        },
+      ],
     };
   },
   watch: {
     $route() {
       this.menuActive = false;
       this.$toast.removeAllGroups();
-    }
+    },
   },
   methods: {
     onWrapperClick() {
@@ -259,7 +264,7 @@ export default {
       } else {
         return true;
       }
-    }
+    },
   },
   computed: {
     containerClass() {
@@ -272,8 +277,8 @@ export default {
             this.staticMenuInactive && this.layoutMode === "static",
           "layout-overlay-sidebar-active":
             this.overlayMenuActive && this.layoutMode === "overlay",
-          "layout-mobile-sidebar-active": this.mobileMenuActive
-        }
+          "layout-mobile-sidebar-active": this.mobileMenuActive,
+        },
       ];
     },
     sidebarClass() {
@@ -281,15 +286,15 @@ export default {
         "layout-sidebar",
         {
           "layout-sidebar-dark": this.layoutColorMode === "dark",
-          "layout-sidebar-light": this.layoutColorMode === "light"
-        }
+          "layout-sidebar-light": this.layoutColorMode === "light",
+        },
       ];
     },
     logo() {
       return this.layoutColorMode === "dark"
         ? "assets/layout/images/logo-white.svg"
         : "assets/layout/images/logo.svg";
-    }
+    },
   },
   beforeUpdate() {
     if (this.mobileMenuActive)
@@ -300,8 +305,8 @@ export default {
     AppTopBar: AppTopBar,
     AppProfile: AppProfile,
     AppMenu: AppMenu,
-    AppFooter: AppFooter
-  }
+    AppFooter: AppFooter,
+  },
 };
 </script>
 

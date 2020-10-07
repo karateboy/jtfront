@@ -83,7 +83,9 @@ import apiService from "@/api/apiServices"
 
 // axios.defaults.withCredentials = true
 // axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? "http://localhost:9000/" : "/";
-axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? "http://192.168.5.137:5000/" : "/";
+// axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? "http://192.168.100.36:5000/" : "/";
+// axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? "http://192.168.100.36:5000/mysql/" : "/";
+axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? "http://localhost:5000/mysql/" : "/";
 
 apiService.init()
 
@@ -98,7 +100,13 @@ router.beforeEach((to, from, next) => {
   }
 })
 
-Vue.use(BootstrapVue)
+Vue.use(BootstrapVue);
+const moment = require('moment')
+require('moment/locale/th')
+Vue.use(require('vue-moment'), {
+  moment
+})
+// Vue.use(require('vue-moment'));
 // Vue.use(BootstrapVueIcons)
 Vue.use(ToastService);
 Vue.directive('tooltip', Tooltip);

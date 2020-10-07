@@ -39,6 +39,7 @@ export default new Router({
 		{
 			path: '/customer',
 			name: 'Customer',
+			props: route => ({ query: route.query.q }),
 			component: () => import('./pages/Customer.vue'),
 		},
 		{
@@ -46,18 +47,18 @@ export default new Router({
 			name: 'Customer Details',
 			component: () => import('./pages/Customer.vue'),
 		},
-
 		//product
 		{
 			path: '/product',
 			name: "Product",
 			component: () => import('./pages/Product.vue'),
+			props: route => ({ query: route.query.c }),
 		},
-		{
-			path: '/product/customer/:id',
-			name: "Product By Customer",
-			component: () => import('./pages/Product.vue'),
-		},
+		// {
+		// 	path: '/product/customer/:id',
+		// 	name: "Product By Customer",
+		// 	component: () => import('./pages/Product.vue'),
+		// },
 
 		{
 			path: '/product/:id',
@@ -70,9 +71,11 @@ export default new Router({
 			path: '/order',
 			name: "Order",
 			component: () => import('./pages/Order.vue'),
+			// props: { customer: router.query.customer },
 			children: [
 				{
 					path: 'customer/:id',
+					props: route => ({ customer: route.query.customer }),
 					name: 'OrderCustomerList',
 				}
 			]
@@ -85,14 +88,15 @@ export default new Router({
 		/// work paths and children
 		{
 			path: '/work',
-			name: "Work",
+			name: "Work Listings",
 			component: () => import('./pages/Work.vue'),
-			children: [
-				{
-					path: 'customer/:id',
-					name: 'WorkCustomerList',
-				},
-			]
+			props: route => ({ query: route.query.c }),
+			// children: [
+			// 	{
+			// 		path: 'customer/:id',
+			// 		name: 'WorkCustomerList',
+			// 	},
+			// ]
 		},
 		{
 			path: '/work/:id',

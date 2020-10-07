@@ -14,12 +14,12 @@ const moduleApi = {
     // get(slug) {
     //     return ApiService.get("/customer", slug);
     // },
-    // create(params) {
-    //     return ApiService.post("/customer", { article: params });
-    // },
-    // update(slug, params) {
-    //     return ApiService.update("/customer", slug, { article: params });
-    // },
+    create(params) {
+        return ApiService.post("/work", { params: params });
+    },
+    update(order_id, params) {
+        return ApiService.update("/order", order_id, { article: params });
+    },
     // destroy(slug) {
     //     return ApiService.delete(`/customer/${slug}`);
     // }
@@ -62,13 +62,15 @@ const mutations = {
         let now = new Date();
         let today = now;
         let newJobs = []
+        let i = 0
         // state.list.splice(0, state.newJobss.length);
         for(let item of data){
             let newItem = {};
-            newItem.work_id = item._id;
+            newItem.work_id = i++;
             newItem.jwn = "NEW";
             newItem.SKU_code = item.product_code + "-" +item.product_number ;
             newItem.SKU_number = item.ptn;
+            newItem.product_id = item._id;
             newItem.SKU_customer = item.ext_ref;
             newItem.entry_datetime = now;
             newItem.due_date = today;
@@ -115,6 +117,17 @@ const mutations = {
 const actions = {
     UPDATE_ORDER({commit}, newJobs){
         commit('SET_NEW_JOBS', newJobs);
+    },
+
+    POST_JOBS(newJobs){
+        // console.log("vuex this from order.js");
+        console.log(newJobs);
+        for(let j of state.appDocument.new_jobs){
+            console.log(j);
+            moduleApi.create(j);
+
+        }
+        // commit('SET_NEW_JOBS', newJobs);
     },
 
     FETCH_LIST({ commit }, db) {

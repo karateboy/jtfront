@@ -2,7 +2,7 @@
   <div class="p-card">
     <div class="p-card-body">
       <DataTable
-      class="p-datatable-sm"
+        class="p-datatable-sm"
         :value="list"
         ref="dt"
         :key="list._id"
@@ -18,19 +18,30 @@
         :rows="100"
         paginatorPosition="top"
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-        :rowsPerPageOptions="[100,250,500]"
+        :rowsPerPageOptions="[100, 250, 500]"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       >
         <template #header>
           <div class="p-datatable-container">
-            <h4>{{tableTitle}}</h4>
-            <InputText v-model="filters['global']" placeholder="Global Search" />
-            <Button icon="pi pi-external-link" label="Export" @click="exportCSV($event)" />
+            <h4>{{ tableTitle }}</h4>
+            <InputText
+              v-model="filters['global']"
+              placeholder="Global Search"
+            />
+            <Button
+              icon="pi pi-external-link"
+              label="Export"
+              @click="exportCSV($event)"
+            />
           </div>
         </template>
 
         <Column selectionMode="multiple" headerStyle="width: 3em"></Column>
-        <Column field="product_code" header="Product Code" headerStyle="width: 5%">
+        <Column
+          field="product_code"
+          header="Product Code"
+          headerStyle="width: 5%"
+        >
           <template #filter>
             <InputText
               type="text"
@@ -56,8 +67,10 @@
           </template>
           <template #body="product">
             <a :href="`/product/${product.data.ptn}`">
-              {{product.data.product_number}}
-              <span v-if="product.data.product_spec">-{{product.data.product_spec}}</span>
+              {{ product.data.product_number }}
+              <span v-if="product.data.product_spec"
+                >-{{ product.data.product_spec }}</span
+              >
             </a>
           </template>
         </Column>
@@ -135,36 +148,58 @@ export default {
       tableTitle: "List of Products",
 
       columns: null,
-      selectedItems: null
+      selectedItems: null,
     };
   },
   mounted() {
-    console.log(this.databasePath);
-    if (this.databasePath === "/product") {
-      console.log("List All");
-      this.$store.dispatch(namespaced + "/FETCH_LIST", "/product");
-    }
-    if (this.databasePath.includes("/product/customer/")) {
-      console.log("List " + this.databasePath);
+    if (this.$route.query.c) {
+      console.log("List " + this.databasePath + this.$route.query.c);
       this.$store.dispatch(
-        namespaced + "/FETCH_FILTERED_LIST",
-        this.databasePath
+        namespaced + "/FETCH_LIST",
+        this.databasePath + "?customer=" + this.$route.query.c
       );
+      // this.pageList = store.filtered_list;
+    } else {
+      //} if (this.databasePath === "/work") {
+      // console.log("List All");
+      this.$store.dispatch(namespaced + "/FETCH_LIST", this.databasePath);
     }
-    if (this.databasePath.includes("/customer")) {
-      this.sortBy = "product_number";
-      this.sortDesc = false;
-    }
+    //     console.log(this.databasePath);
+    // if (this.databasePath === "/product") {
+    //   console.log("List All");
+    //   this.$store.dispatch(namespaced + "/FETCH_LIST", "/product");
+    // }
+    // if (this.databasePath.includes("/product/customer/")) {
+    //   console.log("List " + this.databasePath);
+    //   this.$store.dispatch(
+    //     namespaced + "/FETCH_FILTERED_LIST",
+    //     this.databasePath
+    //   );
+    // }
+    // if (this.databasePath.includes("/customer")) {
+    //   this.sortBy = "product_number";
+    //   this.sortDesc = false;
+    // }
   },
   methods: {
     ...mapActions(namespaced, ["FETCH_LIST"]),
     exportCSV() {
       this.$refs.dt.exportCSV();
-    }
+    },
   },
   computed: {
-    ...mapGetters(namespaced, ["list"])
-  }
+    ...mapGetters(namespaced, ["list"]),
+  },
+  bchome() {
+    return { icon: "pi pi-home", to: "/work" };
+  },
+  bcitems() {
+    return [
+      // { label: this.appDocument.product.sku_list.jt_sku, to: "/product/"+this.appDocument.ptn },
+      // { label: this.appDocument.job_order.customer_po_info, to: "/order/"+this.appDocument.jon },
+      { label: this.appDocument.jwn },
+    ];
+  },
 };
 </script>
 

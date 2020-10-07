@@ -5,9 +5,11 @@ import order from "./order"
 import material from "./material"
 import product from "./product"
 import work from "./work"
+import Router from 'vue-router';
+
 // const work = require("./work")
 
-Vue.use(Vuex)
+Vue.use(Vuex, Router)
 
 export default new Vuex.Store({
   state: {

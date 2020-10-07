@@ -23,12 +23,13 @@ export const ApiService = {
 
   get(resource, slug = "") {
     console.log(`[API Services] GET resource:[`, resource, `]`)
-    return Vue.axios.get(`${resource}/${slug}`).catch(error => {
+    return Vue.axios.get(`${resource}/${slug}?force=1`).catch(error => {
       throw new Error(`[RWV] ApiService ${error}`);
     });
   },
 
   post(resource, params) {
+    console.log("api.js");
     console.log(`[API Services] POST resource:[`, resource, `] params=`, params)
     return Vue.axios.post(`${resource}`, params);
   },
